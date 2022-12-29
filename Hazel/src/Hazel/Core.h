@@ -9,3 +9,5 @@
 #else
 #error Hazel only supports Windows!
 #endif // HZ_PLATFORM_WINDOWS
+
+static constexpr int BIT(int x) { return 1 << x; }
