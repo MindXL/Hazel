@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "Application.h"
 
 #include "Hazel/Events/ApplicationEvent.h"

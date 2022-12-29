@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Hazel/Core.h"
+#include "pch.h"
 
-#include <string>
-#include <functional>
+#include "Hazel/Core.h"
 
 namespace Hazel {
 	// Events run by blocking the process for now.
