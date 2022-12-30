@@ -124,6 +124,16 @@ namespace Hazel {
 		}
 			});
 
+		glfwSetCharCallback(m_Window,
+			// codepoint: The Unicode code point of the character.
+			[](GLFWwindow* window, unsigned int codepoint)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+		KeyTypedEvent event{ (int)codepoint };
+		data.EventCallback(event);
+			});
+
 		glfwSetCursorPosCallback(m_Window,
 			[](GLFWwindow* window, double xpos, double ypos)
 			{
