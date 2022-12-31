@@ -15,7 +15,7 @@
 #endif
 
 #ifdef HZ_ENABLE_ASSERTS
-#define HZ_CORE_ASSERT(x, ...) { if (!(x)) { HZ_CORET_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+#define HZ_CORE_ASSERT(x, ...) { if (!(x)) { HZ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #define HZ_CLIENT_ASSERT(x, ...) { if (!(x)) { HZ_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
 #else
 #define HZ_CORE_ASSERT(x, ...)
