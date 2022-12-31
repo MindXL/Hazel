@@ -8,7 +8,8 @@
 #include <GLFW/glfw3.h>
 #include <glad/gl.h>
 
-namespace Hazel {
+namespace Hazel
+{
 	static ImGuiKey KeyToImGuiKey(int key);
 
 	ImGuiLayer::ImGuiLayer()

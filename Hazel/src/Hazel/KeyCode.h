@@ -126,7 +126,8 @@ constexpr int HZ_KEY_MENU = 348;
 
 //#include <iostream>
 //
-//namespace Hazel {
+//namespace Hazel
+//{
 //	typedef enum class KeyCode :int
 //	{
 //		// From glfw3.h

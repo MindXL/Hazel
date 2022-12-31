@@ -2,7 +2,8 @@
 
 #include "Hazel/Core.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	class HAZEL_API Input
 	{
 	public:

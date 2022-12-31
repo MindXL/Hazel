@@ -7,7 +7,8 @@
 
 #include <glad/gl.h>
 
-namespace Hazel {
+namespace Hazel
+{
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()

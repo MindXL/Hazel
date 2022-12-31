@@ -4,7 +4,8 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Hazel {
+namespace Hazel
+{
 	class WindowsWindow :public Window
 	{
 	public:

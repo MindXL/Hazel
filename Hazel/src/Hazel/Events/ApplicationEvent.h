@@ -2,7 +2,8 @@
 
 #include "Event.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	class HAZEL_API WindowResizeEvent :public Event
 	{
 	public:

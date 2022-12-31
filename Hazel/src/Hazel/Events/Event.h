@@ -4,7 +4,8 @@
 
 #include "Hazel/Core.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	// Events run by blocking the process for now.
 
 	enum class EventType

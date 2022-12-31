@@ -8,7 +8,8 @@
 
 #include <glad/gl.h>
 
-namespace Hazel {
+namespace Hazel
+{
 	static bool s_GLFWInitialized = false;
 
 	static void GFLWErrorCallback(int error_code, const char* description)

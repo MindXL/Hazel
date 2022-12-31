@@ -3,7 +3,8 @@
 #include "Hazel/Core.h"
 #include "Hazel/Events/Event.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	class HAZEL_API Layer
 	{
 	public:

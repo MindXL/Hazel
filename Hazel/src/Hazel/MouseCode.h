@@ -16,7 +16,8 @@ constexpr int HZ_MOUSE_BUTTON_MIDDLE = HZ_MOUSE_BUTTON_3;
 
 //#include <iostream>
 //
-//namespace Hazel {
+//namespace Hazel
+//{
 //	typedef enum class MouseCode :int
 //	{
 //		// From glfw3.h

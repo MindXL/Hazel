@@ -3,7 +3,8 @@
 #include "Hazel/Core.h"
 #include "Layer.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	class HAZEL_API LayerStack
 	{
 	public:

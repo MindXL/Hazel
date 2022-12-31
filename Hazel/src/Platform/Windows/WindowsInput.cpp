@@ -5,7 +5,8 @@
 
 #include <GLFW/glfw3.h>
 
-namespace Hazel {
+namespace Hazel
+{
 	Input* Input::s_Instance = new WindowsInput();
 
 	bool WindowsInput::IsMouseButtonPressedImpl(int button)

@@ -2,7 +2,8 @@
 
 #include "Hazel/Input.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	class WindowsInput :public Input
 	{
 	protected:

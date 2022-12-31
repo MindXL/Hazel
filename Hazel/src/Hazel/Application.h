@@ -6,7 +6,8 @@
 #include "Hazel/Events/Event.h"
 #include "Hazel/Events/ApplicationEvent.h"
 
-namespace Hazel {
+namespace Hazel
+{
 	class HAZEL_API Application
 	{
 	public:
