@@ -9,7 +9,7 @@
 [submodule "Hazel/vendor/ImGui"]
 	path = Hazel/vendor/ImGui
 	url = https://github.com/MindXL/imgui.git
-	branch = master
+	branch = docking
 [submodule "Hazel/vendor/GLM"]
 	path = Hazel/vendor/GLM
 	url = https://github.com/g-truc/glm
