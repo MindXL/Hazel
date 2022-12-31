@@ -1,12 +1,15 @@
 [submodule "Hazel/vendor/spdlog"]
 	path = Hazel/vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+	branch = master
 [submodule "Hazel/vendor/GLFW"]
 	path = Hazel/vendor/GLFW
 	url = https://github.com/MindXL/glfw.git
+	branch = master
 [submodule "Hazel/vendor/ImGui"]
 	path = Hazel/vendor/ImGui
 	url = https://github.com/MindXL/imgui.git
+	branch = master
 [submodule "Hazel/vendor/GLM"]
 	path = Hazel/vendor/GLM
 	url = https://github.com/g-truc/glm
