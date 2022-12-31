@@ -11,6 +11,7 @@ namespace Hazel {
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow();
 
+		inline void* GetNativeWindow() const override { return m_Window; }
 		inline unsigned int GetWidth() const override { return m_Data.Width; }
 		inline unsigned int GetHeight() const override { return m_Data.Height; }
 
