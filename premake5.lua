@@ -17,6 +17,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hazel/vendor/ImGui"
+IncludeDir["GLM"] = "Hazel/vendor/GLM"
 
 group "Dependencies"
 	include "Hazel/vendor/GLFW"
@@ -40,7 +41,9 @@ project "Hazel"
 	files
 	{
 		"%{prj.name}/src/**.h",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/GLM/glm/**.hpp",
+		"%{prj.name}/vendor/GLM/glm/**.inl"
 	}
 
 	includedirs
@@ -49,7 +52,8 @@ project "Hazel"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.GLM}"
 	}
 
 	links
@@ -109,7 +113,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Hazel/vendor/spdlog/include",
-		"Hazel/src"
+		"Hazel/src",
+		"%{IncludeDir.GLM}"
 	}
 
 	links

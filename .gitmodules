@@ -7,3 +7,7 @@
 [submodule "Hazel/vendor/ImGui"]
 	path = Hazel/vendor/ImGui
 	url = https://github.com/MindXL/imgui.git
+[submodule "Hazel/vendor/GLM"]
+	path = Hazel/vendor/GLM
+	url = https://github.com/g-truc/glm
+	branch = master
