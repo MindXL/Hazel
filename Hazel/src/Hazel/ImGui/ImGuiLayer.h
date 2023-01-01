@@ -14,11 +14,11 @@ namespace Hazel
 		ImGuiLayer();
 		~ImGuiLayer();
 
-		void OnAttach() override;
-		void OnDetach() override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
 
 		void Begin();
-		void OnImGuiRender() override;
+		virtual void OnImGuiRender() override;
 		void End();
 	};
 }
