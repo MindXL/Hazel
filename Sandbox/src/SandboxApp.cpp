@@ -1,5 +1,7 @@
 #include <Hazel.h>
 
+#include <ImGui/imgui.h>
+
 class ExampleLayer :public Hazel::Layer
 {
 public:
@@ -18,6 +20,13 @@ public:
 			Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
 			HZ_CLIENT_TRACE("{0}", (char)e.GetKeyCode());
 		}
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 };
 
