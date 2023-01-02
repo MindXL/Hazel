@@ -10,11 +10,15 @@ namespace Hazel
 		OpenGLVertexBuffer(float* vertices, uint32_t count);
 		virtual ~OpenGLVertexBuffer();
 
+		virtual void SetLayout(const BufferLayout& layout) override;
+		virtual const BufferLayout& GetLayout() const override;
+
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
 
 	private:
 		uint32_t m_RendererID;
+		BufferLayout m_Layout;
 	};
 
 	class OpenGLIndexBuffer :public IndexBuffer

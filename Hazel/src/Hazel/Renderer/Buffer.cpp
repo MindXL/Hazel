@@ -38,4 +38,22 @@ namespace Hazel
 		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
+
+	BufferLayout::BufferLayout(const std::initializer_list<BufferElement>& elements)
+		:m_Elements{ elements }
+	{
+		CalculateOffsetAndStride();
+	}
+
+	void BufferLayout::CalculateOffsetAndStride()
+	{
+		uint32_t offset = 0;
+		m_Stride = 0;
+		for (BufferElement& element : m_Elements)
+		{
+			element.Offset = offset;
+			offset += element.Size;
+			m_Stride += element.Size;
+		}
+	}
 }
