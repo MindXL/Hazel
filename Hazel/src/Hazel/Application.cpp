@@ -66,8 +66,6 @@ namespace Hazel
 		m_Shader = std::make_unique<Shader>(vertexSource, fragmentSource);
 	}
 
-	Application::~Application() {}
-
 	void Application::Run()
 	{
 		while (m_Running)
