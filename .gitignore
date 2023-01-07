@@ -2,10 +2,14 @@
 .vs/
 /bin/
 /bin-int/
-/Hazel/vendor/
+/Hazel/vendor/**/bin/
+/Hazel/vendor/**/bin-int/
 
-# Files
-*.user
+# VS Files
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # ImGui
 imgui.ini
