@@ -9,8 +9,8 @@ namespace Hazel
 	protected:
 		virtual bool IsMouseButtonPressedImpl(int button) override;
 		virtual std::pair<float, float> GetMousePositionImpl() override;
-		virtual float GetMouseXImpl() override;
-		virtual float GetMouseYImpl() override;
+		inline virtual float GetMouseXImpl() override { return GetMousePositionImpl().first; }
+		inline virtual float GetMouseYImpl() override { return GetMousePositionImpl().second; }
 
 		virtual bool IsKeyPressedImpl(int keycode) override;
 	};

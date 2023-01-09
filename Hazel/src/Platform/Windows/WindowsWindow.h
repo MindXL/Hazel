@@ -22,11 +22,11 @@ namespace Hazel
 		// Window attributes
 		virtual inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		virtual void SetVSync(bool enabled) override;
-		virtual bool IsVSync() const override;
+		inline virtual bool IsVSync() const override { return m_Data.VSync; }
 
 	private:
 		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
+		inline virtual void Shutdown() { glfwDestroyWindow(m_Window); }
 
 	private:
 		GLFWwindow* m_Window;

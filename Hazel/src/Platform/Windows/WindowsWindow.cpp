@@ -44,11 +44,6 @@ namespace Hazel
 		m_Data.VSync = enabled;
 	}
 
-	bool WindowsWindow::IsVSync() const
-	{
-		return m_Data.VSync;
-	}
-
 	void WindowsWindow::Init(const WindowProps& props)
 	{
 		m_Data.Title = props.Title;
@@ -173,10 +168,5 @@ namespace Hazel
 		MouseScrolledEvent event{ (float)xoffset,(float)yoffset };
 		data.EventCallback(event);
 			});
-	}
-
-	void WindowsWindow::Shutdown()
-	{
-		glfwDestroyWindow(m_Window);
 	}
 }

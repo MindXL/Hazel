@@ -24,18 +24,6 @@ namespace Hazel
 		return { (float)xpos, (float)ypos };
 	}
 
-	float WindowsInput::GetMouseXImpl()
-	{
-		auto [x, y] = GetMousePositionImpl();
-		return x;
-	}
-
-	float WindowsInput::GetMouseYImpl()
-	{
-		auto [x, y] = GetMousePositionImpl();
-		return y;
-	}
-
 	bool WindowsInput::IsKeyPressedImpl(int keycode)
 	{
 		GLFWwindow* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());

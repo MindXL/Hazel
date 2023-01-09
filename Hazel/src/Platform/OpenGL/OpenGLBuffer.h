@@ -10,8 +10,8 @@ namespace Hazel
 		OpenGLVertexBuffer(float* vertices, uint32_t count);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void SetLayout(const BufferLayout& layout) override;
-		virtual const BufferLayout& GetLayout() const override;
+		inline virtual void SetLayout(const BufferLayout& layout) override { m_Layout = layout; }
+		inline virtual const BufferLayout& GetLayout() const override { return m_Layout; }
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
