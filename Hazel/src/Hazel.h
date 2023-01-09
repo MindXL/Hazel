@@ -2,6 +2,8 @@
 
 // For use by Hazel applications
 
+#include "Hazel/Core/Timestep.h"
+
 #include "Hazel/Application.h"
 #include "Hazel/Layer.h"
 #include "Hazel/Input.h"

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core.h"
+#include "Hazel/Core/Timestep.h"
 #include "Window.h"
 #include "Hazel/LayerStack.h"
 #include "Hazel/Events/Event.h"
@@ -37,6 +38,9 @@ namespace Hazel
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
+		std::chrono::time_point<std::chrono::steady_clock> m_LastFrameTimePoint;
+		Timestep m_LastFrameTimestep;
 
 		static Application* s_Instance;
 	};

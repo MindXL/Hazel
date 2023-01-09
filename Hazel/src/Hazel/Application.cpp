@@ -26,8 +26,13 @@ namespace Hazel
 	{
 		while (m_Running)
 		{
+			auto timePoint = std::chrono::steady_clock::now();
+			Timestep timestep{ timePoint - m_LastFrameTimePoint };
+			m_LastFrameTimePoint = timePoint;
+			m_LastFrameTimestep = timestep;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
