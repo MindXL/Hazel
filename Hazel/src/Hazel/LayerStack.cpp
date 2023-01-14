@@ -6,7 +6,7 @@ namespace Hazel
 {
 	LayerStack::~LayerStack()
 	{
-		for (Layer* layer : m_Layers)
+		for (const Layer* layer : m_Layers)
 			delete layer;
 	}
 
@@ -21,9 +21,9 @@ namespace Hazel
 		m_Layers.emplace_back(overlay);
 	}
 
-	void LayerStack::PopLayer(Layer* layer)
+	void LayerStack::PopLayer(const Layer* layer)
 	{
-		auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
+		const auto it = std::find(m_Layers.begin(), m_Layers.end(), layer);
 		if (it != m_Layers.end())
 		{
 			m_Layers.erase(it);
@@ -31,9 +31,9 @@ namespace Hazel
 		}
 	}
 
-	void LayerStack::PopOverlay(Layer* overlay)
+	void LayerStack::PopOverlay(const Layer* overlay)
 	{
-		auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
+		const auto it = std::find(m_Layers.begin(), m_Layers.end(), overlay);
 		if (it != m_Layers.end())
 			m_Layers.erase(it);
 	}

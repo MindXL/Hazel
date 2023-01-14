@@ -27,28 +27,27 @@ namespace Hazel
 		EventCategoryMouseButton = BIT(4)
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
-								virtual EventType GetEventType() const override { return GetStaticType(); }\
-								virtual const char* GetName() const override { return #type; }
+#define EVENT_CLASS_TYPE(type) [[nodiscard]] static EventType GetStaticType() { return EventType::##type; }\
+							   [[nodiscard]] EventType GetEventType() const override { return GetStaticType(); }\
+							   [[nodiscard]] const char* GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
+#define EVENT_CLASS_CATEGORY(category) [[nodiscard]] int GetCategoryFlags() const override { return category; }
 
 	class HAZEL_API Event
 	{
 		friend class EventDispatcher;
 
 	public:
+		virtual ~Event() = default;
+
 		bool Handled = false;
 
-		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0;
-		virtual int GetCategoryFlags() const = 0;
-		virtual std::string ToString() const { return GetName(); }
+		[[nodiscard]] virtual EventType GetEventType() const = 0;
+		[[nodiscard]] virtual const char* GetName() const = 0;
+		[[nodiscard]] virtual int GetCategoryFlags() const = 0;
+		[[nodiscard]] virtual std::string ToString() const { return GetName(); }
 
-		inline bool IsInCategory(EventCategory category)
-		{
-			return GetCategoryFlags() & category;
-		}
+		[[nodiscard]] bool IsInCategory(const EventCategory category) const { return GetCategoryFlags() & category; }
 	};
 
 	class EventDispatcher
@@ -57,8 +56,8 @@ namespace Hazel
 		using EventFn = std::function<bool(T&)>;
 
 	public:
-		EventDispatcher(Event& event)
-			:m_Event{ event } {}
+		explicit EventDispatcher(Event& event)
+			: m_Event{event} {}
 
 		template<typename T>
 		bool Dispatch(EventFn<T> func)

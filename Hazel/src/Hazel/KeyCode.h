@@ -2,11 +2,11 @@
 
 // From glfw3.h
 constexpr int HZ_KEY_SPACE = 32;
-constexpr int HZ_KEY_APOSTROPHE = 39;  /* ' */
-constexpr int HZ_KEY_COMMA = 44;  /* , */
-constexpr int HZ_KEY_MINUS = 45;  /* - */
-constexpr int HZ_KEY_PERIOD = 46;  /* . */
-constexpr int HZ_KEY_SLASH = 47;  /* / */
+constexpr int HZ_KEY_APOSTROPHE = 39; /* ' */
+constexpr int HZ_KEY_COMMA = 44; /* , */
+constexpr int HZ_KEY_MINUS = 45; /* - */
+constexpr int HZ_KEY_PERIOD = 46; /* . */
+constexpr int HZ_KEY_SLASH = 47; /* / */
 constexpr int HZ_KEY_0 = 48;
 constexpr int HZ_KEY_1 = 49;
 constexpr int HZ_KEY_2 = 50;
@@ -17,8 +17,8 @@ constexpr int HZ_KEY_6 = 54;
 constexpr int HZ_KEY_7 = 55;
 constexpr int HZ_KEY_8 = 56;
 constexpr int HZ_KEY_9 = 57;
-constexpr int HZ_KEY_SEMICOLON = 59;  /* ; */
-constexpr int HZ_KEY_EQUAL = 61;  /* = */
+constexpr int HZ_KEY_SEMICOLON = 59; /* ; */
+constexpr int HZ_KEY_EQUAL = 61; /* = */
 constexpr int HZ_KEY_A = 65;
 constexpr int HZ_KEY_B = 66;
 constexpr int HZ_KEY_C = 67;
@@ -45,10 +45,10 @@ constexpr int HZ_KEY_W = 87;
 constexpr int HZ_KEY_X = 88;
 constexpr int HZ_KEY_Y = 89;
 constexpr int HZ_KEY_Z = 90;
-constexpr int HZ_KEY_LEFT_BRACKET = 91;  /* [ */
-constexpr int HZ_KEY_BACKSLASH = 92;  /* \ */
-constexpr int HZ_KEY_RIGHT_BRACKET = 93;  /* ] */
-constexpr int HZ_KEY_GRAVE_ACCENT = 96;  /* ` */
+constexpr int HZ_KEY_LEFT_BRACKET = 91; /* [ */
+constexpr int HZ_KEY_BACKSLASH = 92; /* \ */
+constexpr int HZ_KEY_RIGHT_BRACKET = 93; /* ] */
+constexpr int HZ_KEY_GRAVE_ACCENT = 96; /* ` */
 constexpr int HZ_KEY_WORLD_1 = 161; /* non-US #1 */
 constexpr int HZ_KEY_WORLD_2 = 162; /* non-US #2 */
 

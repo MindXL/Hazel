@@ -18,6 +18,6 @@ namespace Hazel
 
 	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray)
 	{
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, int(vertexArray->GetIndexBuffer()->GetCount()), GL_UNSIGNED_INT, nullptr);
 	}
 }
