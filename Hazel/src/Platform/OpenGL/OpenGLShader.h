@@ -5,7 +5,7 @@
 
 namespace Hazel
 {
-	class OpenGLShader :public Shader
+	class OpenGLShader final : public Shader
 	{
 	public:
 		/*
@@ -13,22 +13,22 @@ namespace Hazel
 		* @param fragmentSource: source code for fragment shader.
 		*/
 		OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource);
-		virtual ~OpenGLShader();
+		~OpenGLShader() override;
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		void UploadUniformInt(const std::string& name, int value);
+		void UploadUniformInt(const std::string& name, const int value) const;
 
-		void UploadUniformFloat(const std::string& name, float value);
-		void UploadUniformFloat2(const std::string& name, const glm::vec2& value);
-		void UploadUniformFloat3(const std::string& name, const glm::vec3& value);
-		void UploadUniformFloat4(const std::string& name, const glm::vec4& value);
+		void UploadUniformFloat(const std::string& name, const float value) const;
+		void UploadUniformFloat2(const std::string& name, const glm::vec2& value) const;
+		void UploadUniformFloat3(const std::string& name, const glm::vec3& value) const;
+		void UploadUniformFloat4(const std::string& name, const glm::vec4& value) const;
 
-		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
-		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
+		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix) const;
+		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) const;
 
 	private:
-		uint32_t m_RendererID;
+		uint32_t m_RendererID{};
 	};
 }

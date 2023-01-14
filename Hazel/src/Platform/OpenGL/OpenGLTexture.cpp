@@ -7,13 +7,13 @@
 
 namespace Hazel
 {
-	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
-		:m_Path{ path }
+	OpenGLTexture2D::OpenGLTexture2D(std::string path)
+		: m_Path{std::move(path)}
 	{
 		int width = 0, height = 0, channels = 0;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
-		HZ_CORE_ASSERT(data, "Failed to load image!");
+		stbi_uc* data = stbi_load(m_Path.c_str(), &width, &height, &channels, 0);
+		HZ_CORE_ASSERT(data, "Failed to load image!")
 
 		m_Width = (uint32_t)width;
 		m_Height = (uint32_t)height;
@@ -34,7 +34,7 @@ namespace Hazel
 		glDeleteTextures(1, &m_RendererID);
 	}
 
-	void OpenGLTexture2D::Bind(uint32_t slot) const
+	void OpenGLTexture2D::Bind(const uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_RendererID);
 	}

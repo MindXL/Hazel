@@ -4,29 +4,29 @@
 
 namespace Hazel
 {
-	class HAZEL_API KeyEvent :public Event
+	class HAZEL_API KeyEvent : public Event
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		[[nodiscard]] int GetKeyCode() const { return m_KeyCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategory::EventCategoryKeyboard | EventCategory::EventCategoryInput)
 
 	protected:
-		KeyEvent(int keycode)
-			:m_KeyCode{ keycode } {}
+		explicit KeyEvent(const int keycode)
+			: m_KeyCode{keycode} {}
 
 		int m_KeyCode;
 	};
 
-	class HAZEL_API KeyPressedEvent :public KeyEvent
+	class HAZEL_API KeyPressedEvent final : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			:KeyEvent{ keycode }, m_RepeatCount{ repeatCount } {}
+		KeyPressedEvent(const int keycode, const int repeatCount)
+			: KeyEvent{keycode}, m_RepeatCount{repeatCount} {}
 
-		inline int GetRepeatCount() const { return m_RepeatCount; }
+		[[nodiscard]] int GetRepeatCount() const { return m_RepeatCount; }
 
-		virtual std::string ToString() const override
+		[[nodiscard]] std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
@@ -39,13 +39,13 @@ namespace Hazel
 		int m_RepeatCount;
 	};
 
-	class HAZEL_API KeyReleasedEvent :public KeyEvent
+	class HAZEL_API KeyReleasedEvent final : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode)
-			:KeyEvent{ keycode } {}
+		explicit KeyReleasedEvent(const int keycode)
+			: KeyEvent{keycode} {}
 
-		virtual std::string ToString() const override
+		[[nodiscard]] std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "KeyReleasedEvent: " << m_KeyCode;
@@ -55,13 +55,13 @@ namespace Hazel
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class HAZEL_API KeyTypedEvent :public KeyEvent
+	class HAZEL_API KeyTypedEvent final : public KeyEvent
 	{
 	public:
-		KeyTypedEvent(int keycode)
-			:KeyEvent{ keycode } {}
+		explicit KeyTypedEvent(const int keycode)
+			: KeyEvent{keycode} {}
 
-		virtual std::string ToString() const override
+		[[nodiscard]] std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "KeyTypedEvent: " << m_KeyCode;

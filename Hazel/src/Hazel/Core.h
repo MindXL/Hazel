@@ -6,15 +6,15 @@
 #ifdef HZ_PLATFORM_WINDOWS
 #ifdef HZ_DYNAMIC_LINK
 #ifdef HZ_BUILD_DLL
-#define HAZEL_API __declspec(dllexport)
+	#define HAZEL_API __declspec(dllexport)
 #else
-#define HAZEL_API __declspec(dllimport)
+	#define HAZEL_API __declspec(dllimport)
 #endif // HZ_BUILD_DLL
 #else
 #define HAZEL_API
 #endif // HZ_DYNAMIC_LINK
 #else
-#error Hazel only supports Windows!
+	#error Hazel only supports Windows!
 #endif // HZ_PLATFORM_WINDOWS
 
 #ifdef HZ_DEBUG
@@ -29,7 +29,7 @@
 #define HZ_CLIENT_ASSERT(x, ...)
 #endif // HZ_ENABLE_ASSERTS
 
-static constexpr int BIT(int x) { return 1 << x; }
+static constexpr int BIT(const int x) { return 1 << x; }
 
 #define HZ_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 

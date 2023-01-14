@@ -6,24 +6,25 @@
 
 namespace Hazel
 {
-	static GLenum ShaderDataTypeToGLenum(ShaderDataType type)
+	static GLenum ShaderDataTypeToGLenum(const ShaderDataType type)
 	{
 		switch (type)
 		{
-		case Hazel::ShaderDataType::Int:
-		case Hazel::ShaderDataType::Int2:
-		case Hazel::ShaderDataType::Int3:
-		case Hazel::ShaderDataType::Int4: return GL_INT;
-		case Hazel::ShaderDataType::Float:
-		case Hazel::ShaderDataType::Float2:
-		case Hazel::ShaderDataType::Float3:
-		case Hazel::ShaderDataType::Float4: return GL_FLOAT;
-		case Hazel::ShaderDataType::Bool: return GL_BOOL;
-		case Hazel::ShaderDataType::Mat3:
-		case Hazel::ShaderDataType::Mat4: return GL_FLOAT;
+		case ShaderDataType::None: break;
+		case ShaderDataType::Int:
+		case ShaderDataType::Int2:
+		case ShaderDataType::Int3:
+		case ShaderDataType::Int4: return GL_INT;
+		case ShaderDataType::Float:
+		case ShaderDataType::Float2:
+		case ShaderDataType::Float3:
+		case ShaderDataType::Float4: return GL_FLOAT;
+		case ShaderDataType::Bool: return GL_BOOL;
+		case ShaderDataType::Mat3:
+		case ShaderDataType::Mat4: return GL_FLOAT;
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!")
 		return 0;
 	}
 
@@ -49,7 +50,7 @@ namespace Hazel
 
 	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer)
 	{
-		HZ_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size() != 0, "Vertex Buffer has no layout!");
+		HZ_CORE_ASSERT(!vertexBuffer->GetLayout().GetElements().empty(), "Vertex Buffer has no layout!")
 
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
@@ -60,12 +61,12 @@ namespace Hazel
 		{
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index,
-				element.Count,
-				ShaderDataTypeToGLenum(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(void*)element.Offset
-			);
+			                      (int)element.Count,
+			                      ShaderDataTypeToGLenum(element.Type),
+			                      element.Normalized ? GL_TRUE : GL_FALSE,
+			                      (int)layout.GetStride(),
+			                      // TODO: Possible memory issue when 32-bit Offset cast to void* which has 64 bits?
+			                      (void*)element.Offset);
 			index++;
 		}
 

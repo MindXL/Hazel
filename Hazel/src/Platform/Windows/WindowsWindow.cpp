@@ -19,7 +19,7 @@ namespace Hazel
 
 	Window* Window::Create(const WindowProps& props)
 	{
-		return new WindowsWindow(props);
+		return new WindowsWindow{props};
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
@@ -38,7 +38,7 @@ namespace Hazel
 		m_Context->SwapBuffers();
 	}
 
-	void WindowsWindow::SetVSync(bool enabled)
+	void WindowsWindow::SetVSync(const bool enabled)
 	{
 		glfwSwapInterval(enabled ? 1 : 0);
 		m_Data.VSync = enabled;
@@ -53,9 +53,10 @@ namespace Hazel
 		HZ_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 		if (!s_GLFWInitialized)
-		{// Only initialze GLFW for once.
-			int success = glfwInit();
-			HZ_CORE_ASSERT(success, "Could not initialize GLFW!");
+		{
+			// Only initialze GLFW for once.
+			const int success = glfwInit();
+			HZ_CORE_ASSERT(success, "Could not initialize GLFW!")
 			glfwSetErrorCallback(GFLWErrorCallback);
 
 			s_GLFWInitialized = true;
@@ -72,101 +73,103 @@ namespace Hazel
 		// Set GLFW callbacks
 		// TODO: Fix or close VS's horrible auto formatting for lambda functions when saved as shown below.
 		glfwSetWindowSizeCallback(m_Window,
-			[](GLFWwindow* window, int width, int height)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-		data.Width = width;
-		data.Height = height;
+		                          [](GLFWwindow* window, int width, int height)-> void
+		                          {
+			                          WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+			                          data.Width = width;
+			                          data.Height = height;
 
-		WindowResizeEvent event{ (unsigned int)width,(unsigned int)height };
-		data.EventCallback(event);
-			});
+			                          WindowResizeEvent event{(unsigned int)width, (unsigned int)height};
+			                          data.EventCallback(event);
+		                          });
 
 		glfwSetWindowCloseCallback(m_Window,
-			[](GLFWwindow* window)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+		                           [](GLFWwindow* window)-> void
+		                           {
+			                           const WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		WindowCloseEvent event;
-		data.EventCallback(event);
-			});
+			                           WindowCloseEvent event;
+			                           data.EventCallback(event);
+		                           });
 
 		glfwSetKeyCallback(m_Window,
-			[](GLFWwindow* window, int key, int scancode, int action, int mods)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+		                   [](GLFWwindow* window, int key, int scancode, int action, int mods)-> void
+		                   {
+			                   const WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		switch (action)
-		{
-		case GLFW_PRESS:
-		{
-			KeyPressedEvent event{ key,0 };
-			data.EventCallback(event);
-			break;
-		}
-		case GLFW_RELEASE:
-		{
-			KeyReleasedEvent event{ key };
-			data.EventCallback(event);
-			break;
-		}
-		case GLFW_REPEAT:
-		{
-			KeyPressedEvent event{ key,1 };
-			data.EventCallback(event);
-			break;
-		}
-		}
-			});
+			                   switch (action)
+			                   {
+			                   case GLFW_PRESS:
+				                   {
+					                   KeyPressedEvent event{key, 0};
+					                   data.EventCallback(event);
+					                   break;
+				                   }
+			                   case GLFW_RELEASE:
+				                   {
+					                   KeyReleasedEvent event{key};
+					                   data.EventCallback(event);
+					                   break;
+				                   }
+			                   case GLFW_REPEAT:
+				                   {
+					                   KeyPressedEvent event{key, 1};
+					                   data.EventCallback(event);
+					                   break;
+				                   }
+			                   default: HZ_CORE_ASSERT(false, "Unknown key event!")
+			                   }
+		                   });
 
 		glfwSetCharCallback(m_Window,
-			// codepoint: The Unicode code point of the character.
-			[](GLFWwindow* window, unsigned int codepoint)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+		                    // codepoint: The Unicode code point of the character.
+		                    [](GLFWwindow* window, unsigned int codepoint)-> void
+		                    {
+			                    const WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		KeyTypedEvent event{ (int)codepoint };
-		data.EventCallback(event);
-			});
+			                    KeyTypedEvent event{(int)codepoint};
+			                    data.EventCallback(event);
+		                    });
 
 		glfwSetCursorPosCallback(m_Window,
-			[](GLFWwindow* window, double xpos, double ypos)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+		                         [](GLFWwindow* window, double xpos, double ypos)-> void
+		                         {
+			                         const WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		MouseMovedEvent event{ (float)xpos,(float)ypos };
-		data.EventCallback(event);
-			});
+			                         MouseMovedEvent event{(float)xpos, (float)ypos};
+			                         data.EventCallback(event);
+		                         });
 
 		glfwSetMouseButtonCallback(m_Window,
-			[](GLFWwindow* window, int button, int action, int mods)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+		                           [](GLFWwindow* window, int button, int action, int mods)-> void
+		                           {
+			                           const WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		switch (action)
-		{
-		case GLFW_PRESS:
-		{
-			MouseButtonPressedEvent event{ button };
-			data.EventCallback(event);
-			break;
-		}
-		case GLFW_RELEASE:
-		{
-			MouseButtonReleasedEvent event{ button };
-			data.EventCallback(event);
-			break;
-		}
-		}
-			});
+			                           switch (action)
+			                           {
+			                           case GLFW_PRESS:
+				                           {
+					                           MouseButtonPressedEvent event{button};
+					                           data.EventCallback(event);
+					                           break;
+				                           }
+			                           case GLFW_RELEASE:
+				                           {
+					                           MouseButtonReleasedEvent event{button};
+					                           data.EventCallback(event);
+					                           break;
+				                           }
+			                           default: HZ_CORE_ASSERT(false, "Unknown key event!")
+			                           }
+		                           });
 
 		glfwSetScrollCallback(m_Window,
-			[](GLFWwindow* window, double xoffset, double yoffset)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+		                      [](GLFWwindow* window, double xoffset, double yoffset)-> void
+		                      {
+			                      const WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		MouseScrolledEvent event{ (float)xoffset,(float)yoffset };
-		data.EventCallback(event);
-			});
+			                      MouseScrolledEvent event{(float)xoffset, (float)yoffset};
+			                      data.EventCallback(event);
+		                      });
 	}
 }

@@ -14,8 +14,8 @@ namespace Hazel
 
 		// Send the vertex shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		const GLchar* source = (const GLchar*)vertexSource.c_str();
-		glShaderSource(vertexShader, 1, &source, 0);
+		const GLchar* source = vertexSource.c_str();
+		glShaderSource(vertexShader, 1, &source, nullptr);
 
 		// Compile the vertex shader
 		glCompileShader(vertexShader);
@@ -29,12 +29,12 @@ namespace Hazel
 
 			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(vertexShader, maxLength, &maxLength, &infoLog[0]);
+			glGetShaderInfoLog(vertexShader, maxLength, &maxLength, infoLog.data());
 
 			// We don't need the shader anymore.
 			glDeleteShader(vertexShader);
 
-			HZ_CORE_ASSERT(false, "Vertex shader compilation failed:");
+			HZ_CORE_ASSERT(false, "Vertex shader compilation failed:")
 			HZ_CORE_ERROR("{0}", infoLog.data());
 			return;
 		}
@@ -44,8 +44,8 @@ namespace Hazel
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = (const GLchar*)fragmentSource.c_str();
-		glShaderSource(fragmentShader, 1, &source, 0);
+		source = fragmentSource.c_str();
+		glShaderSource(fragmentShader, 1, &source, nullptr);
 
 		// Compile the fragment shader
 		glCompileShader(fragmentShader);
@@ -58,14 +58,14 @@ namespace Hazel
 
 			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, &infoLog[0]);
+			glGetShaderInfoLog(fragmentShader, maxLength, &maxLength, infoLog.data());
 
 			// We don't need the shader anymore.
 			glDeleteShader(fragmentShader);
 			// Either of them. Don't leak shaders.
 			glDeleteShader(vertexShader);
 
-			HZ_CORE_ASSERT(false, "Fragment shader compilation failed:");
+			HZ_CORE_ASSERT(false, "Fragment shader compilation failed:")
 			HZ_CORE_ERROR("{0}", infoLog.data());
 			return;
 		}
@@ -84,7 +84,7 @@ namespace Hazel
 
 		// Note the different functions here: glGetProgram* instead of glGetShader*.
 		GLint isLinked = 0;
-		glGetProgramiv(program, GL_LINK_STATUS, (int*)&isLinked);
+		glGetProgramiv(program, GL_LINK_STATUS, &isLinked);
 		if (isLinked == GL_FALSE)
 		{
 			GLint maxLength = 0;
@@ -92,7 +92,7 @@ namespace Hazel
 
 			// The maxLength includes the NULL character
 			std::vector<GLchar> infoLog(maxLength);
-			glGetProgramInfoLog(program, maxLength, &maxLength, &infoLog[0]);
+			glGetProgramInfoLog(program, maxLength, &maxLength, infoLog.data());
 
 			// We don't need the program anymore.
 			glDeleteProgram(program);
@@ -100,7 +100,7 @@ namespace Hazel
 			glDeleteShader(vertexShader);
 			glDeleteShader(fragmentShader);
 
-			HZ_CORE_ASSERT(false, "Shader link failed:");
+			HZ_CORE_ASSERT(false, "Shader link failed:")
 			HZ_CORE_ERROR("{0}", infoLog.data());
 			return;
 		}
@@ -127,45 +127,45 @@ namespace Hazel
 		glUseProgram(0);
 	}
 
-	void OpenGLShader::UploadUniformInt(const std::string& name, int value)
+	void OpenGLShader::UploadUniformInt(const std::string& name, const int value) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(location, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat(const std::string& name, float value)
+	void OpenGLShader::UploadUniformFloat(const std::string& name, const float value) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1f(location, value);
 	}
 
-	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value)
+	void OpenGLShader::UploadUniformFloat2(const std::string& name, const glm::vec2& value) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform2f(location, value.x, value.y);
 	}
 
-	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value)
+	void OpenGLShader::UploadUniformFloat3(const std::string& name, const glm::vec3& value) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform3f(location, value.x, value.y, value.z);
 	}
 
-	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value)
+	void OpenGLShader::UploadUniformFloat4(const std::string& name, const glm::vec4& value) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform4f(location, value.x, value.y, value.z, value.w);
 	}
 
-	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix)
+	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix3fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
-	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix)
+	void OpenGLShader::UploadUniformMat4(const std::string& name, const glm::mat4& matrix) const
 	{
-		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
+		const GLint location = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }

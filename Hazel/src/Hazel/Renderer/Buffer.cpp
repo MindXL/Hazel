@@ -7,40 +7,40 @@
 
 namespace Hazel
 {
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t count)
+	VertexBuffer* VertexBuffer::Create(const float* vertices, const uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:
-		{
-			HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
-			return nullptr;
-		}
+			{
+				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
+				return nullptr;
+			}
 		case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, count);
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
+		HZ_CORE_ASSERT(false, "Unknown RendererAPI!")
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t count)
+	IndexBuffer* IndexBuffer::Create(const uint32_t* indices, const uint32_t count)
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:
-		{
-			HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
-			return nullptr;
-		}
+			{
+				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
+				return nullptr;
+			}
 		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, count);
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
+		HZ_CORE_ASSERT(false, "Unknown RendererAPI!")
 		return nullptr;
 	}
 
 	BufferLayout::BufferLayout(const std::initializer_list<BufferElement>& elements)
-		:m_Elements{ elements }
+		: m_Elements{elements}
 	{
 		CalculateOffsetAndStride();
 	}

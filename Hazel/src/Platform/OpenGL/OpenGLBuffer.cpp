@@ -7,11 +7,11 @@
 namespace Hazel
 {
 	/* VertexBuffer */
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t count)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(const float* vertices, const uint32_t count)
 	{
 		glCreateBuffers(1, &m_RendererID);
 		Bind();
-		glBufferData(GL_ARRAY_BUFFER, count * sizeof(float), vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, (long long)(count * sizeof(float)), vertices, GL_STATIC_DRAW);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -30,12 +30,12 @@ namespace Hazel
 	}
 
 	/* IndexBuffer */
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
-		:m_Count{ count }
+	OpenGLIndexBuffer::OpenGLIndexBuffer(const uint32_t* indices, const uint32_t count)
+		: m_Count{count}
 	{
 		glCreateBuffers(1, &m_RendererID);
 		Bind();
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, (long long)(count * sizeof(float)), indices, GL_STATIC_DRAW);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()

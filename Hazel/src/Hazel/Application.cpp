@@ -3,7 +3,6 @@
 #include "Application.h"
 
 #include "Hazel/Log.h"
-#include "Input.h"
 #include "Hazel/Renderer/Renderer.h"
 
 namespace Hazel
@@ -12,7 +11,7 @@ namespace Hazel
 
 	Application::Application()
 	{
-		HZ_CORE_ASSERT(s_Instance == nullptr, "Application already exists!");
+		HZ_CORE_ASSERT(s_Instance == nullptr, "Application already exists!")
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
@@ -27,7 +26,7 @@ namespace Hazel
 		while (m_Running)
 		{
 			auto timePoint = std::chrono::steady_clock::now();
-			Timestep timestep{ timePoint - m_LastFrameTimePoint };
+			Timestep timestep{timePoint - m_LastFrameTimePoint};
 			m_LastFrameTimePoint = timePoint;
 			m_LastFrameTimestep = timestep;
 
@@ -45,10 +44,10 @@ namespace Hazel
 
 	void Application::OnEvent(Event& event)
 	{
-		EventDispatcher dispatcher{ event };
+		EventDispatcher dispatcher{event};
 		dispatcher.Dispatch<WindowCloseEvent>(HZ_BIND_EVENT_FN(Application::OnWindowClose));
 
-		for (auto rit = m_LayerStack.rbegin(); rit != m_LayerStack.rend(); rit++)
+		for (auto rit = m_LayerStack.rbegin(); rit != m_LayerStack.rend(); ++rit)
 		{
 			(*rit)->OnEvent(event);
 			if (event.Handled)

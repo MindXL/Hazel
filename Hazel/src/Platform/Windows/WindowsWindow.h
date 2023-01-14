@@ -7,39 +7,40 @@
 
 namespace Hazel
 {
-	class WindowsWindow :public Window
+	class WindowsWindow final : public Window
 	{
 	public:
-		WindowsWindow(const WindowProps& props);
-		virtual ~WindowsWindow();
+		explicit WindowsWindow(const WindowProps& props);
+		~WindowsWindow() override;
 
-		virtual inline void* GetNativeWindow() const override { return m_Window; }
-		virtual inline unsigned int GetWidth() const override { return m_Data.Width; }
-		virtual inline unsigned int GetHeight() const override { return m_Data.Height; }
+		[[nodiscard]] void* GetNativeWindow() const override { return m_Window; }
+		[[nodiscard]] unsigned int GetWidth() const override { return m_Data.Width; }
+		[[nodiscard]] unsigned int GetHeight() const override { return m_Data.Height; }
 
-		virtual void OnUpdate() override;
+		void OnUpdate() override;
 
 		// Window attributes
-		virtual inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		virtual void SetVSync(bool enabled) override;
-		inline virtual bool IsVSync() const override { return m_Data.VSync; }
+		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
+		void SetVSync(const bool enabled) override;
+		[[nodiscard]] bool IsVSync() const override { return m_Data.VSync; }
 
 	private:
-		virtual void Init(const WindowProps& props);
-		inline virtual void Shutdown() { glfwDestroyWindow(m_Window); }
+		void Init(const WindowProps& props);
+		void Shutdown() const { glfwDestroyWindow(m_Window); }
 
 	private:
-		GLFWwindow* m_Window;
-		GraphicsContext* m_Context;
+		GLFWwindow* m_Window = nullptr;
+		GraphicsContext* m_Context = nullptr;
 
 		struct WindowData
 		{
 			std::string Title;
-			unsigned int Width, Height;
-			bool VSync;
+			unsigned int Width = 0, Height = 0;
+			bool VSync = true;
 
 			EventCallbackFn EventCallback;
 		};
+
 		WindowData m_Data;
 	};
 }

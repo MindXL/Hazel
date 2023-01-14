@@ -7,9 +7,6 @@
 #include "Hazel/Events/Event.h"
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/ImGui/ImGuiLayer.h"
-#include "Hazel/Renderer/VertexArray.h"
-#include "Hazel/Renderer/Shader.h"
-#include "Hazel/Renderer/OrthographicCamera.h"
 
 namespace Hazel
 {
@@ -26,9 +23,9 @@ namespace Hazel
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
-		inline Window& GetWindow() { return *m_Window; }
+		[[nodiscard]] Window& GetWindow() const { return *m_Window; }
 
-		inline static Application& Get() { return *s_Instance; }
+		[[nodiscard]] static Application& Get() { return *s_Instance; }
 
 	private:
 		bool OnWindowClose(WindowCloseEvent& event);
