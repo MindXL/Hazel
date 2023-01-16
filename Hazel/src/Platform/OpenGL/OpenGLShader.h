@@ -1,13 +1,17 @@
 #pragma once
 
 #include "Hazel/Renderer/Shader.h"
+
 #include <glm/glm.hpp>
+
+typedef unsigned int GLenum;
 
 namespace Hazel
 {
 	class OpenGLShader final : public Shader
 	{
 	public:
+		explicit OpenGLShader(const std::string& filepath);
 		/*
 		* @param vertexSource: source code for vertex shader.
 		* @param fragmentSource: source code for fragment shader.
@@ -27,6 +31,11 @@ namespace Hazel
 
 		void UploadUniformMat3(const std::string& name, const glm::mat3& matrix) const;
 		void UploadUniformMat4(const std::string& name, const glm::mat4& matrix) const;
+
+	private:
+		static std::string ReadFile(const std::string& filepath);
+		static std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 
 	private:
 		uint32_t m_RendererID{};
