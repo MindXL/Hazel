@@ -21,7 +21,7 @@ namespace Hazel
 
 		// Window attributes
 		void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
-		void SetVSync(const bool enabled) override;
+		void SetVSync(bool enabled) override;
 		[[nodiscard]] bool IsVSync() const override { return m_Data.VSync; }
 
 	private:
