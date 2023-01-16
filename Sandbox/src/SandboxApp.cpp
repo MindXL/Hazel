@@ -18,8 +18,8 @@ public:
 				0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 				0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 			};
-			Hazel::Ref<Hazel::VertexBuffer> vertexBuffer;
-			vertexBuffer.reset(Hazel::VertexBuffer::Create(vertices, sizeof vertices / sizeof(float)));
+			Hazel::Ref<Hazel::VertexBuffer> vertexBuffer = Hazel::VertexBuffer::Create(
+				vertices, sizeof vertices / sizeof(float));
 			vertexBuffer->SetLayout({
 				{Hazel::ShaderDataType::Float3, "a_Position"},
 				{Hazel::ShaderDataType::Float4, "a_Color"}
@@ -27,11 +27,11 @@ public:
 
 			/* IndexBuffer */
 			uint32_t indices[3]{0, 1, 2};
-			Hazel::Ref<Hazel::IndexBuffer> indexBuffer;
-			indexBuffer.reset(Hazel::IndexBuffer::Create(indices, sizeof indices / sizeof(uint32_t)));
+			Hazel::Ref<Hazel::IndexBuffer> indexBuffer = Hazel::IndexBuffer::Create(
+				indices, sizeof indices / sizeof(uint32_t));
 
 			/* VertexArray */
-			m_VertexArray.reset(Hazel::VertexArray::Create());
+			m_VertexArray = Hazel::VertexArray::Create();
 			m_VertexArray->AddVertexBuffer(vertexBuffer);
 			m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -79,7 +79,7 @@ public:
 				-0.5f, 0.5f, 0.0f, 0.0f, 1.0f
 			};
 			Hazel::Ref<Hazel::VertexBuffer> squareVB;
-			squareVB.reset(Hazel::VertexBuffer::Create(squareVertices, sizeof squareVertices / sizeof(float)));
+			squareVB = Hazel::VertexBuffer::Create(squareVertices, sizeof squareVertices / sizeof(float));
 			squareVB->SetLayout({
 				{Hazel::ShaderDataType::Float3, "a_Position"},
 				{Hazel::ShaderDataType::Float2, "a_TextureCoordinates"}
@@ -88,9 +88,9 @@ public:
 			/* IndexBuffer */
 			uint32_t squareIndices[6]{0, 1, 2, 2, 3, 0};
 			Hazel::Ref<Hazel::IndexBuffer> squareIB;
-			squareIB.reset(Hazel::IndexBuffer::Create(squareIndices, sizeof squareIndices / sizeof(uint32_t)));
+			squareIB = Hazel::IndexBuffer::Create(squareIndices, sizeof squareIndices / sizeof(uint32_t));
 
-			m_SquareVA.reset(Hazel::VertexArray::Create());
+			m_SquareVA = Hazel::VertexArray::Create();
 			m_SquareVA->AddVertexBuffer(squareVB);
 			m_SquareVA->SetIndexBuffer(squareIB);
 

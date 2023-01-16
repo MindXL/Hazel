@@ -28,7 +28,7 @@ namespace Hazel
 		virtual ~Window() = default;
 
 		[[nodiscard]] virtual void* GetNativeWindow() const = 0;
-		static Window* Create(const WindowProps& props = WindowProps());
+		static Scope<Window> Create(const WindowProps& props = WindowProps());
 
 		[[nodiscard]] virtual unsigned int GetWidth() const = 0;
 		[[nodiscard]] virtual unsigned int GetHeight() const = 0;

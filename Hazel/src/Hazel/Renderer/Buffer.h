@@ -109,7 +109,7 @@ namespace Hazel
 		// TODO: Is this GetCount necessary?
 		// virtual uint32_t GetCount() const = 0;
 
-		static VertexBuffer* Create(const float* vertices, uint32_t count);
+		static Ref<VertexBuffer> Create(const float* vertices, uint32_t count);
 	};
 
 	class IndexBuffer
@@ -122,6 +122,6 @@ namespace Hazel
 
 		[[nodiscard]] virtual uint32_t GetCount() const = 0;
 
-		static IndexBuffer* Create(const uint32_t* indices, uint32_t count);
+		static Ref<IndexBuffer> Create(const uint32_t* indices, uint32_t count);
 	};
 }
