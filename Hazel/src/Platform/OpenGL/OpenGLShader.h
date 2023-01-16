@@ -12,15 +12,18 @@ namespace Hazel
 	{
 	public:
 		explicit OpenGLShader(const std::string& filepath);
+		OpenGLShader(std::string name, const std::string& filepath);
 		/*
 		* @param vertexSource: source code for vertex shader.
 		* @param fragmentSource: source code for fragment shader.
 		*/
-		OpenGLShader(const std::string& vertexSource, const std::string& fragmentSource);
+		OpenGLShader(std::string name, const std::string& vertexSource, const std::string& fragmentSource);
 		~OpenGLShader() override;
 
 		void Bind() const override;
 		void Unbind() const override;
+
+		[[nodiscard]] const std::string& GetName() const override { return m_Name; }
 
 		void UploadUniformInt(const std::string& name, int value) const;
 
@@ -39,5 +42,6 @@ namespace Hazel
 
 	private:
 		uint32_t m_RendererID{};
+		std::string m_Name;
 	};
 }
