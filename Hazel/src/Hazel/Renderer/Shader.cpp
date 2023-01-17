@@ -7,7 +7,8 @@
 
 namespace Hazel
 {
-	Ref<Shader> Shader::Create(const std::string& filepath)
+	template<typename... Args>
+	static Ref<Shader> InnerCreate(Args&&... args)
 	{
 		switch (Renderer::GetAPI())
 		{
@@ -16,45 +17,27 @@ namespace Hazel
 				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
 				return nullptr;
 			}
-		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(filepath);
+		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(std::forward<Args>(args)...);
 		}
 
 		HZ_CORE_ASSERT(false, "Unknown RendererAPI!")
 		return nullptr;
+	}
+
+	Ref<Shader> Shader::Create(const std::string& filepath)
+	{
+		return InnerCreate(filepath);
 	}
 
 	Ref<Shader> Shader::Create(std::string name, const std::string& filepath)
 	{
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::API::None:
-			{
-				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
-				return nullptr;
-			}
-		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(std::move(name), filepath);
-		}
-
-		HZ_CORE_ASSERT(false, "Unknown RendererAPI!")
-		return nullptr;
+		return InnerCreate(std::move(name), filepath);
 	}
 
-	Ref<Shader> Shader::Create(std::string name, const std::string& vertexSource,
-	                           const std::string& fragmentSource)
+	Ref<Shader> Shader::Create(std::string name,
+	                           const std::string& vertexSource, const std::string& fragmentSource)
 	{
-		switch (Renderer::GetAPI())
-		{
-		case RendererAPI::API::None:
-			{
-				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
-				return nullptr;
-			}
-		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(
-				std::move(name), vertexSource, fragmentSource);
-		}
-
-		HZ_CORE_ASSERT(false, "Unknown RendererAPI!")
-		return nullptr;
+		return InnerCreate(std::move(name), vertexSource, fragmentSource);
 	}
 
 	void ShaderLibrary::Add(const Ref<Shader>& shader)

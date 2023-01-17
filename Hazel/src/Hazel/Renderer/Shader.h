@@ -12,7 +12,8 @@ namespace Hazel
 
 		[[nodiscard]] virtual const std::string& GetName() const = 0;
 
-		static Ref<Shader> Create(const std::string& filepath);
+		// TODO: Inline this one won't cause link error while the other two will.
+		static inline Ref<Shader> Create(const std::string& filepath);
 		static Ref<Shader> Create(std::string name, const std::string& filepath);
 		static Ref<Shader> Create(std::string name, const std::string& vertexSource, const std::string& fragmentSource);
 	};
