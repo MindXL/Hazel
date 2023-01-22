@@ -13,12 +13,12 @@ public:
 	{
 		{
 			/* VertexBuffer */
-			float vertices[3 * 7] = {
+			constexpr float vertices[3 * 7] = {
 				-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 0.8f, 1.0f,
 				0.5f, -0.5f, 0.0f, 0.2f, 0.3f, 0.8f, 1.0f,
 				0.0f, 0.5f, 0.0f, 0.8f, 0.8f, 0.2f, 1.0f
 			};
-			Hazel::Ref<Hazel::VertexBuffer> vertexBuffer = Hazel::VertexBuffer::Create(
+			const Hazel::Ref<Hazel::VertexBuffer> vertexBuffer = Hazel::VertexBuffer::Create(
 				vertices, sizeof vertices / sizeof(float));
 			vertexBuffer->SetLayout({
 				{Hazel::ShaderDataType::Float3, "a_Position"},
@@ -26,8 +26,8 @@ public:
 			});
 
 			/* IndexBuffer */
-			uint32_t indices[3]{0, 1, 2};
-			Hazel::Ref<Hazel::IndexBuffer> indexBuffer = Hazel::IndexBuffer::Create(
+			constexpr uint32_t indices[3]{0, 1, 2};
+			const Hazel::Ref<Hazel::IndexBuffer> indexBuffer = Hazel::IndexBuffer::Create(
 				indices, sizeof indices / sizeof(uint32_t));
 
 			/* VertexArray */
@@ -35,7 +35,7 @@ public:
 			m_VertexArray->AddVertexBuffer(vertexBuffer);
 			m_VertexArray->SetIndexBuffer(indexBuffer);
 
-			std::string vertexSource = R"(
+			const std::string vertexSource = R"(
 				#version 460 core
 
 				layout(location = 0) in vec3 a_Position;
@@ -54,7 +54,7 @@ public:
 					gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Position, 1.0);
 				}
 			)";
-			std::string fragmentSource = R"(
+			const std::string fragmentSource = R"(
 				#version 460 core
 
 				layout(location = 0) out vec4 color;
@@ -72,29 +72,29 @@ public:
 
 		{
 			/* VertexBuffer */
-			float squareVertices[5 * 4] = {
+			constexpr float squareVertices[5 * 4] = {
 				-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 				0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
 				0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
 				-0.5f, 0.5f, 0.0f, 0.0f, 1.0f
 			};
-			Hazel::Ref<Hazel::VertexBuffer> squareVB;
-			squareVB = Hazel::VertexBuffer::Create(squareVertices, sizeof squareVertices / sizeof(float));
+			const Hazel::Ref<Hazel::VertexBuffer> squareVB = Hazel::VertexBuffer::Create(
+				squareVertices, sizeof squareVertices / sizeof(float));
 			squareVB->SetLayout({
 				{Hazel::ShaderDataType::Float3, "a_Position"},
 				{Hazel::ShaderDataType::Float2, "a_TextureCoordinates"}
 			});
 
 			/* IndexBuffer */
-			uint32_t squareIndices[6]{0, 1, 2, 2, 3, 0};
-			Hazel::Ref<Hazel::IndexBuffer> squareIB;
-			squareIB = Hazel::IndexBuffer::Create(squareIndices, sizeof squareIndices / sizeof(uint32_t));
+			constexpr uint32_t squareIndices[6]{0, 1, 2, 2, 3, 0};
+			const Hazel::Ref<Hazel::IndexBuffer> squareIB = Hazel::IndexBuffer::Create(
+				squareIndices, sizeof squareIndices / sizeof(uint32_t));
 
 			m_SquareVA = Hazel::VertexArray::Create();
 			m_SquareVA->AddVertexBuffer(squareVB);
 			m_SquareVA->SetIndexBuffer(squareIB);
 
-			std::string flatColorShaderVertexSource = R"(
+			const std::string flatColorShaderVertexSource = R"(
 				#version 460 core
 
 				layout(location = 0) in vec3 a_Position;
@@ -110,7 +110,7 @@ public:
 					gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Position, 1.0);
 				}
 			)";
-			std::string flatColorShaderFragmentSource = R"(
+			const std::string flatColorShaderFragmentSource = R"(
 				#version 460 core
 
 				layout(location = 0) out vec4 color;
@@ -128,7 +128,7 @@ public:
 			                                          flatColorShaderFragmentSource);
 		}
 
-		auto textureShader = m_ShaderLibrary.Load("Texture", "assets/shaders/Texture.glsl");
+		const auto textureShader = m_ShaderLibrary.Load("Texture", "assets/shaders/Texture.glsl");
 
 		m_Texture = Hazel::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Hazel::Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -166,7 +166,7 @@ public:
 			}
 		}
 
-		auto textureShader = m_ShaderLibrary.Get("Texture");
+		const auto textureShader = m_ShaderLibrary.Get("Texture");
 
 		m_Texture->Bind();
 		Hazel::Renderer::Submit(m_SquareVA, textureShader, glm::scale(glm::mat4{1.0f}, glm::vec3{1.5f}));
