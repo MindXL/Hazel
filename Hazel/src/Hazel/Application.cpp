@@ -32,8 +32,11 @@ namespace Hazel
 			m_LastFrameTimePoint = timePoint;
 			m_LastFrameTimestep = timestep;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
@@ -47,6 +50,7 @@ namespace Hazel
 	void Application::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher{event};
+		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(Application::OnWindowResize));
 		dispatcher.Dispatch<WindowCloseEvent>(HZ_BIND_EVENT_FN(Application::OnWindowClose));
 
 		for (auto rit = m_LayerStack.rbegin(); rit != m_LayerStack.rend(); ++rit)
@@ -69,7 +73,23 @@ namespace Hazel
 		overlay->OnAttach();
 	}
 
-	bool Application::OnWindowClose(WindowCloseEvent& event)
+	bool Application::OnWindowResize(const WindowResizeEvent& event)
+	{
+		const uint32_t width = event.GetWidth(), height = event.GetHeight();
+
+		if (width == 0 || height == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+
+		m_Minimized = false;
+		Renderer::OnWindowResize(width, height);
+
+		return false;
+	}
+
+	bool Application::OnWindowClose(const WindowCloseEvent& event)
 	{
 		m_Running = false;
 		return true;

@@ -28,12 +28,14 @@ namespace Hazel
 		[[nodiscard]] static Application& Get() { return *s_Instance; }
 
 	private:
-		bool OnWindowClose(WindowCloseEvent& event);
+		bool OnWindowResize(const WindowResizeEvent& event);
+		bool OnWindowClose(const WindowCloseEvent& event);
 
 	private:
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
+		bool m_Minimized = false;
 		LayerStack m_LayerStack;
 
 		std::chrono::time_point<std::chrono::steady_clock> m_LastFrameTimePoint;

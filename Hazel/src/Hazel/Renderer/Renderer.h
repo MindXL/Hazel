@@ -17,6 +17,8 @@ namespace Hazel
 		static void Submit(const Ref<VertexArray>& vertexArray, const Ref<Shader>& shader,
 		                   const glm::mat4& transform = glm::mat4{1.0f});
 
+		static void OnWindowResize(uint32_t width, uint32_t height);
+
 		[[nodiscard]] static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 
 	private:
