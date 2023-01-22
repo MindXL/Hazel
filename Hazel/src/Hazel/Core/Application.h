@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Core.h"
-#include "Hazel/Core/Timestep.h"
+#include "Timestep.h"
 #include "Window.h"
-#include "Hazel/LayerStack.h"
+#include "LayerStack.h"
 #include "Hazel/Events/Event.h"
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/ImGui/ImGuiLayer.h"

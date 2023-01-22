@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-typedef unsigned int GLenum;
+using GLenum = unsigned int;
 
 namespace Hazel
 {

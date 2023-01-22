@@ -1,7 +1,8 @@
 #include "pch.h"
 
 #include "ImGuiLayer.h"
-#include "Hazel/Application.h"
+
+#include "Hazel/Core/Application.h"
 
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
@@ -39,7 +40,7 @@ namespace Hazel
 		}
 
 		Application& app = Application::Get();
-		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
+		auto window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		// Setup Platform/Renderer backends
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
