@@ -2,6 +2,8 @@
 
 #include "Application.h"
 
+#include <ranges>
+
 #include "Log.h"
 #include "Hazel/Renderer/Renderer.h"
 
@@ -38,10 +40,10 @@ namespace Hazel
 					layer->OnUpdate(timestep);
 			}
 
-			m_ImGuiLayer->Begin();
+			ImGuiLayer::Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
-			m_ImGuiLayer->End();
+			ImGuiLayer::End();
 
 			m_Window->OnUpdate();
 		}
@@ -53,9 +55,9 @@ namespace Hazel
 		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(Application::OnWindowResize));
 		dispatcher.Dispatch<WindowCloseEvent>(HZ_BIND_EVENT_FN(Application::OnWindowClose));
 
-		for (auto rit = m_LayerStack.rbegin(); rit != m_LayerStack.rend(); ++rit)
+		for (const auto& rit : std::ranges::reverse_view(m_LayerStack))
 		{
-			(*rit)->OnEvent(event);
+			rit->OnEvent(event);
 			if (event.Handled)
 				break;
 		}
