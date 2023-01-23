@@ -16,23 +16,37 @@ namespace Hazel
 	{
 		const float time = timestep.GetSeconds();
 
-		if (Input::IsKeyPressed(HZ_KEY_A))
-			m_CameraPosition.x -= m_CameraTranslationSpeed * time;
-		if (Input::IsKeyPressed(HZ_KEY_D))
-			m_CameraPosition.x += m_CameraTranslationSpeed * time;
-		if (Input::IsKeyPressed(HZ_KEY_W))
-			m_CameraPosition.y += m_CameraTranslationSpeed * time;
-		if (Input::IsKeyPressed(HZ_KEY_S))
-			m_CameraPosition.y -= m_CameraTranslationSpeed * time;
+		// TODO: Maybe convert those if-statements below to function call.
+		if (const bool A = Input::IsKeyPressed(HZ_KEY_A), D = Input::IsKeyPressed(HZ_KEY_D);
+			(A || D) && !(A && D))
+		{
+			if (A)
+				m_CameraPosition.x -= m_CameraTranslationSpeed * time;
+			else // D
+				m_CameraPosition.x += m_CameraTranslationSpeed * time;
+		}
+
+		if (const bool W = Input::IsKeyPressed(HZ_KEY_W), S = Input::IsKeyPressed(HZ_KEY_S);
+			(W || S) && !(W && S))
+		{
+			if (W)
+				m_CameraPosition.y += m_CameraTranslationSpeed * time;
+			else // S
+				m_CameraPosition.y -= m_CameraTranslationSpeed * time;
+		}
 
 		m_Camera.SetPosition(m_CameraPosition);
 
 		if (m_Rotation)
 		{
-			if (Input::IsKeyPressed(HZ_KEY_Q))
-				m_CameraRotation += m_CameraRotationSpeed * time;
-			if (Input::IsKeyPressed(HZ_KEY_E))
-				m_CameraRotation -= m_CameraRotationSpeed * time;
+			if (const bool Q = Input::IsKeyPressed(HZ_KEY_Q), E = Input::IsKeyPressed(HZ_KEY_E);
+				(Q || E) && !(Q && E))
+			{
+				if (Q)
+					m_CameraRotation += m_CameraRotationSpeed * time;
+				else // E
+					m_CameraRotation -= m_CameraRotationSpeed * time;
+			}
 
 			m_Camera.SetRotation(m_CameraRotation);
 		}
