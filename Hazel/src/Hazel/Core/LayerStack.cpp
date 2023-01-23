@@ -27,7 +27,9 @@ namespace Hazel
 
 	void LayerStack::PopLayer(Layer* layer)
 	{
-		if (const auto it = std::ranges::find(m_Layers, layer); it != m_Layers.end())
+		const auto end = std::next(m_Layers.begin(), m_LayerInsertIndex);
+		if (const auto it = std::find(m_Layers.begin(), end, layer);
+			it != end)
 		{
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
@@ -37,7 +39,9 @@ namespace Hazel
 
 	void LayerStack::PopOverlay(Layer* overlay)
 	{
-		if (const auto it = std::ranges::find(m_Layers, overlay); it != m_Layers.end())
+		const auto begin = std::next(m_Layers.begin(), m_LayerInsertIndex);
+		if (const auto it = std::find(begin, m_Layers.end(), overlay);
+			it != m_Layers.end())
 		{
 			m_Layers.erase(it);
 			overlay->OnDetach();
