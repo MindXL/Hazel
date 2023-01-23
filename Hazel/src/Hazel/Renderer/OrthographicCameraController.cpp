@@ -21,18 +21,30 @@ namespace Hazel
 			(A || D) && !(A && D))
 		{
 			if (A)
-				m_CameraPosition.x -= m_CameraTranslationSpeed * time;
+			{
+				m_CameraPosition.x -= std::cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+				m_CameraPosition.y -= std::sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+			}
 			else // D
-				m_CameraPosition.x += m_CameraTranslationSpeed * time;
+			{
+				m_CameraPosition.x += std::cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+				m_CameraPosition.y += std::sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+			}
 		}
 
 		if (const bool W = Input::IsKeyPressed(HZ_KEY_W), S = Input::IsKeyPressed(HZ_KEY_S);
 			(W || S) && !(W && S))
 		{
 			if (W)
-				m_CameraPosition.y += m_CameraTranslationSpeed * time;
+			{
+				m_CameraPosition.x += -std::sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+				m_CameraPosition.y += std::cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+			}
 			else // S
-				m_CameraPosition.y -= m_CameraTranslationSpeed * time;
+			{
+				m_CameraPosition.x -= -std::sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+				m_CameraPosition.y -= std::cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * time;
+			}
 		}
 
 		m_Camera.SetPosition(m_CameraPosition);
@@ -47,6 +59,11 @@ namespace Hazel
 				else // E
 					m_CameraRotation -= m_CameraRotationSpeed * time;
 			}
+
+			if (m_CameraRotation > 180.0f)
+				m_CameraRotation -= 360.0f;
+			else if (m_CameraRotation <= -180.0f)
+				m_CameraRotation += 360.0f;
 
 			m_Camera.SetRotation(m_CameraRotation);
 		}
