@@ -7,7 +7,7 @@
 
 namespace Hazel
 {
-	Input* Input::s_Instance = new WindowsInput();
+	Scope<Input> Input::s_Instance = CreateScope<WindowsInput>();
 
 	bool WindowsInput::IsMouseButtonPressedImpl(const int button)
 	{
