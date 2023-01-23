@@ -20,8 +20,8 @@ namespace Hazel
 
 		void OnEvent(Event& event);
 
-		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* overlay);
+		void PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
+		void PushOverlay(Layer* overlay) { m_LayerStack.PushOverlay(overlay); }
 
 		[[nodiscard]] Window& GetWindow() const { return *m_Window; }
 

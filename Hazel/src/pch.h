@@ -8,6 +8,7 @@
 #include <utility>
 #include <chrono>
 #include <fstream>
+#include <ranges>
 
 #include <string>
 #include <sstream>
