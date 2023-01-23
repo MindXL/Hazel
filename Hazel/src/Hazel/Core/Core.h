@@ -29,7 +29,7 @@
 #define HZ_CLIENT_ASSERT(x, ...)
 #endif // HZ_ENABLE_ASSERTS
 
-static constexpr int BIT(const int x) { return 1 << x; }
+static consteval int BIT(const int x) { return 1 << x; }
 
 #define HZ_BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
 
