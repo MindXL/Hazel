@@ -140,11 +140,13 @@ namespace Hazel
 			HZ_CORE_ASSERT(type != 0, "Invalid shader type specified.");
 
 			const size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			HZ_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax error");
+
 			pos = source.find(typeToken, nextLinePos);
-			shaderSources.emplace(type, source.substr(nextLinePos,
-			                                          pos - (nextLinePos != std::string::npos
-				                                                 ? nextLinePos
-				                                                 : source.size() - 1)));
+			if (pos != std::string::npos)
+				shaderSources.emplace(type, source.substr(nextLinePos, pos - nextLinePos));
+			else
+				shaderSources.emplace(type, source.substr(nextLinePos));
 		}
 
 		return shaderSources;
