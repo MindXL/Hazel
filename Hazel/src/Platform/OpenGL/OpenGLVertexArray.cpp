@@ -55,19 +55,18 @@ namespace Hazel
 		glBindVertexArray(m_RendererID);
 		vertexBuffer->Bind();
 
-		const BufferLayout& layout = vertexBuffer->GetLayout();
-		uint32_t index = 0;
-		for (const BufferElement& element : layout)
+		for (const BufferLayout& layout = vertexBuffer->GetLayout();
+		     const BufferElement& element : layout)
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
+			glEnableVertexAttribArray(m_VertexBufferIndex);
+			glVertexAttribPointer(m_VertexBufferIndex,
 			                      (int)element.Count,
 			                      ShaderDataTypeToGLenum(element.Type),
 			                      element.Normalized ? GL_TRUE : GL_FALSE,
 			                      (int)layout.GetStride(),
 			                      // TODO: Possible memory issue when 32-bit Offset cast to void* which has 64 bits?
 			                      (void*)element.Offset);
-			index++;
+			m_VertexBufferIndex++;
 		}
 
 		m_VertexBuffers.emplace_back(vertexBuffer);
