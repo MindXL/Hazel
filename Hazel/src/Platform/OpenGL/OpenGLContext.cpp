@@ -10,7 +10,7 @@ namespace Hazel
 	OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
 		: m_WindowHandle{windowHandle}
 	{
-		HZ_CORE_ASSERT(windowHandle, "Window handle is null!")
+		HZ_CORE_ASSERT(windowHandle, "Window handle is null!");
 	}
 
 	void OpenGLContext::Init()
@@ -18,7 +18,7 @@ namespace Hazel
 		glfwMakeContextCurrent(m_WindowHandle);
 
 		const int version = gladLoadGL(glfwGetProcAddress);
-		HZ_CORE_ASSERT(version, "Failed to initialize Glad(OpenGL context)!")
+		HZ_CORE_ASSERT(version, "Failed to initialize Glad(OpenGL context)!");
 
 		HZ_CORE_INFO("OpenGL Info:");
 		HZ_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));

@@ -11,24 +11,14 @@ namespace Hazel
 	public:
 		static void Init();
 
-		[[nodiscard]] static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-		[[nodiscard]] static std::shared_ptr<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+		[[nodiscard]] static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+		[[nodiscard]] static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
 
 	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
+		static Ref<spdlog::logger> s_CoreLogger;
+		static Ref<spdlog::logger> s_ClientLogger;
 	};
 }
-
-// TODO: Modify those macros down there to functions using template and parameter-pack.
-// The code below has failed.
-/*
-template<typename ...Args>
-void HZ_CORE_ERROR(Args&& ...args)
-{
-	Hazel::Log::GetCoreLogger()->error(args...);
-}
-*/
 
 // Core log macros
 #define HZ_CORE_TRACE(...) ::Hazel::Log::GetCoreLogger()->trace(__VA_ARGS__)

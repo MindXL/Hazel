@@ -29,7 +29,7 @@ namespace Hazel
 		//[[nodiscard]] inline Ref<Shader> Get(const std::string& name);
 		[[nodiscard]] Ref<Shader> Get(const std::string& name)
 		{
-			HZ_CORE_ASSERT(Exists(name), "Shader doesn't exist.")
+			HZ_CORE_ASSERT(Exists(name), "Shader doesn't exist.");
 			return m_Shaders.at(name);
 		}
 

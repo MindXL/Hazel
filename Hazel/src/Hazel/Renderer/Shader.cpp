@@ -14,13 +14,13 @@ namespace Hazel
 		{
 		case RendererAPI::API::None:
 			{
-				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!")
+				HZ_CORE_ASSERT(false, "RendererAPI::None is currently not supported!");
 				return nullptr;
 			}
 		case RendererAPI::API::OpenGL: return std::make_shared<OpenGLShader>(std::forward<Args>(args)...);
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown RendererAPI!")
+		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
 		return nullptr;
 	}
 
@@ -42,7 +42,7 @@ namespace Hazel
 
 	void ShaderLibrary::Add(const Ref<Shader>& shader)
 	{
-		HZ_CORE_ASSERT(!Exists(shader->GetName()), "Shader already exists.")
+		HZ_CORE_ASSERT(!Exists(shader->GetName()), "Shader already exists.");
 
 		m_Shaders.emplace(shader->GetName(), shader);
 	}
@@ -64,7 +64,7 @@ namespace Hazel
 	// TODO: Results link error if declaration of Get() is put here. But no error respect to Add() above.
 	//Ref<Shader> ShaderLibrary::Get(const std::string& name)
 	//{
-	//	HZ_CORE_ASSERT(Exists(name), "Shader doesn't exist.")
+	//	HZ_CORE_ASSERT(Exists(name), "Shader doesn't exist.");
 	//	return m_Shaders.at(name);
 	//}
 }

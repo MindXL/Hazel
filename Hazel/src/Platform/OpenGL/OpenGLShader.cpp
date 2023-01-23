@@ -118,7 +118,7 @@ namespace Hazel
 		if (type == "fragment" || type == "pixel")
 			return GL_FRAGMENT_SHADER;
 
-		HZ_CORE_ASSERT(false, "Unknown shader type!")
+		HZ_CORE_ASSERT(false, "Unknown shader type!");
 		return 0;
 	}
 
@@ -132,12 +132,12 @@ namespace Hazel
 		for (size_t pos = source.find(typeToken); pos != std::string::npos;)
 		{
 			const size_t eol = source.find_first_of("\r\n", pos);
-			HZ_CORE_ASSERT(eol != std::string::npos, "Syntax error.")
+			HZ_CORE_ASSERT(eol != std::string::npos, "Syntax error.");
 
 			const size_t begin = pos + typeTokenLength + 1;
 			std::string_view typeString{source.data() + begin, eol - begin};
 			GLenum type = ShaderTypeFromString(typeString);
-			HZ_CORE_ASSERT(type != 0, "Invalid shader type specified.")
+			HZ_CORE_ASSERT(type != 0, "Invalid shader type specified.");
 
 			const size_t nextLinePos = source.find_first_not_of("\r\n", eol);
 			pos = source.find(typeToken, nextLinePos);
@@ -155,7 +155,7 @@ namespace Hazel
 		static constexpr size_t MAX_SHADER_NUM = 2;
 
 		const GLuint program = glCreateProgram();
-		HZ_CORE_ASSERT(shaderSources.size() <= MAX_SHADER_NUM, "We don't support that many shaders for now.")
+		HZ_CORE_ASSERT(shaderSources.size() <= MAX_SHADER_NUM, "We don't support that many shaders for now.");
 
 		std::array<GLenum, MAX_SHADER_NUM> glShaderIDs{};
 		int glShaderIDIndex = 0;
@@ -181,7 +181,7 @@ namespace Hazel
 
 				glDeleteShader(shader);
 
-				HZ_CORE_ASSERT(false, "Shader compilation failed:")
+				HZ_CORE_ASSERT(false, "Shader compilation failed:");
 				HZ_CORE_ERROR("{0}", infoLog.data());
 				break;
 			}
@@ -208,7 +208,7 @@ namespace Hazel
 			for (const auto& id : glShaderIDs)
 				glDeleteShader(id);
 
-			HZ_CORE_ASSERT(false, "Shader link failed:")
+			HZ_CORE_ASSERT(false, "Shader link failed:");
 			HZ_CORE_ERROR("{0}", infoLog.data());
 			return;
 		}

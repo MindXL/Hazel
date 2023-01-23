@@ -13,7 +13,7 @@ namespace Hazel
 		int width = 0, height = 0, channels = 0;
 		stbi_set_flip_vertically_on_load(1);
 		stbi_uc* data = stbi_load(m_Path.c_str(), &width, &height, &channels, 0);
-		HZ_CORE_ASSERT(data, "Failed to load image!")
+		HZ_CORE_ASSERT(data, "Failed to load image!");
 
 		m_Width = (uint32_t)width;
 		m_Height = (uint32_t)height;
@@ -29,7 +29,7 @@ namespace Hazel
 			internalFormat = GL_RGBA8;
 			dataFormat = GL_RGBA;
 		}
-		HZ_CORE_ASSERT(internalFormat&dataFormat, "Format not supported!")
+		HZ_CORE_ASSERT(internalFormat&dataFormat, "Format not supported!");
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, internalFormat, (int)m_Width, (int)m_Height);

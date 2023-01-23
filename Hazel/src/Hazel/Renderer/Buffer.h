@@ -29,7 +29,7 @@ namespace Hazel
 		case ShaderDataType::Mat4: return 4 * 4;
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!")
+		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 
@@ -51,7 +51,7 @@ namespace Hazel
 		case ShaderDataType::Mat4: return 4 * 4 * sizeof(float);
 		}
 
-		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!")
+		HZ_CORE_ASSERT(false, "Unknown ShaderDataType!");
 		return 0;
 	}
 

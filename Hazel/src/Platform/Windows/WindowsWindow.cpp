@@ -56,7 +56,7 @@ namespace Hazel
 		{
 			// Only initialze GLFW for once.
 			const int success = glfwInit();
-			HZ_CORE_ASSERT(success, "Could not initialize GLFW!")
+			HZ_CORE_ASSERT(success, "Could not initialize GLFW!");
 			glfwSetErrorCallback(GFLWErrorCallback);
 
 			s_GLFWInitialized = true;
@@ -117,7 +117,7 @@ namespace Hazel
 					                   data.EventCallback(event);
 					                   break;
 				                   }
-			                   default: HZ_CORE_ASSERT(false, "Unknown key event!")
+			                   default: HZ_CORE_ASSERT(false, "Unknown key event!");
 			                   }
 		                   });
 
@@ -159,7 +159,7 @@ namespace Hazel
 					                           data.EventCallback(event);
 					                           break;
 				                           }
-			                           default: HZ_CORE_ASSERT(false, "Unknown key event!")
+			                           default: HZ_CORE_ASSERT(false, "Unknown key event!");
 			                           }
 		                           });
 
