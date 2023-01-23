@@ -215,7 +215,10 @@ namespace Hazel
 
 		// Always detach shaders after a successful link.
 		for (const auto& id : glShaderIDs)
+		{
 			glDetachShader(program, id);
+			glDeleteShader(id);
+		}
 
 		m_RendererID = program;
 	}
