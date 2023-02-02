@@ -25,7 +25,3 @@
 // --------------
 
 #include "Hazel/ImGui/ImGuiLayer.h"
-
-// ---Entry Point---
-#include "Hazel/Core/EntryPoint.h"
-// -----------------

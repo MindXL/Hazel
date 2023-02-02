@@ -1,9 +1,12 @@
 #include <Hazel.h>
+#include <Hazel/Core/EntryPoint.h>
 #include <Platform/OpenGL/OpenGLShader.h>
 
 #include <ImGui/imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
+#include "Sandbox2D.h"
 
 class ExampleLayer final : public Hazel::Layer
 {
@@ -94,38 +97,7 @@ public:
 			m_SquareVA->AddVertexBuffer(squareVB);
 			m_SquareVA->SetIndexBuffer(squareIB);
 
-			const std::string flatColorShaderVertexSource = R"(
-				#version 460 core
-
-				layout(location = 0) in vec3 a_Position;
-
-				uniform mat4 u_ViewProjectionMatrix;
-				uniform mat4 u_Transform;
-
-				out vec3 v_Position;
-
-				void main()
-				{
-					v_Position = a_Position;
-					gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Position, 1.0);
-				}
-			)";
-			const std::string flatColorShaderFragmentSource = R"(
-				#version 460 core
-
-				layout(location = 0) out vec4 color;
-
-				in vec3 v_Position;
-
-				uniform vec3 u_Color;
-
-				void main()
-				{
-					color = vec4(u_Color, 1.0);
-				}
-			)";
-			m_FlatColorShader = Hazel::Shader::Create("FlatColor", flatColorShaderVertexSource,
-			                                          flatColorShaderFragmentSource);
+			m_FlatColorShader = Hazel::Shader::Create("assets/shaders/FlatColor.glsl");
 		}
 
 		const auto textureShader = m_ShaderLibrary.Load("Texture", "assets/shaders/Texture.glsl");
@@ -154,7 +126,7 @@ public:
 		// TODO: Causes binding shader twice.
 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->
-			UploadUniformFloat3("u_Color", m_SquareColor);
+			UploadUniformFloat4("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{
@@ -206,7 +178,7 @@ private:
 
 	Hazel::OrthographicCameraController m_CameraController;
 
-	glm::vec3 m_SquareColor = {0.2f, 0.3f, 0.8f};
+	glm::vec4 m_SquareColor = {0.2f, 0.3f, 0.8f, 1.0f};
 };
 
 class Sandbox final : public Hazel::Application
@@ -214,7 +186,8 @@ class Sandbox final : public Hazel::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 };
 
