@@ -106,8 +106,8 @@ public:
 		m_ChernoLogoTexture = Hazel::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 		// TODO: Causes binding shader twice.
-		std::dynamic_pointer_cast<Hazel::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<Hazel::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Hazel::Timestep timestep) override
@@ -124,9 +124,8 @@ public:
 		const glm::mat4 scale = glm::scale(glm::mat4{1.0f}, glm::vec3{0.1f});
 
 		// TODO: Causes binding shader twice.
-		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->
-			UploadUniformFloat4("u_Color", m_SquareColor);
+		m_FlatColorShader->Bind();
+		m_FlatColorShader->SetFloat4("u_Color", m_SquareColor);
 
 		for (int y = 0; y < 20; y++)
 		{

@@ -6,8 +6,6 @@
 #include "Shader.h"
 #include "RenderCommand.h"
 
-#include "Platform/OpenGL/OpenGLShader.h"
-
 namespace Hazel
 {
 	struct Renderer2DStorage
@@ -66,12 +64,10 @@ namespace Hazel
 		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
 		);
 
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->Bind();
+		s_Data->FlatColorShader->Bind();
 
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformMat4(
-			"u_ViewProjectionMatrix", camera.GetViewProjectionMatrix());
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformMat4(
-			"u_Transform", glm::mat4{1.0f});
+		s_Data->FlatColorShader->SetMat4("u_ViewProjectionMatrix", camera.GetViewProjectionMatrix());
+		s_Data->FlatColorShader->SetMat4("u_Transform", glm::mat4{1.0f});
 	}
 
 	void Renderer2D::EndScene() {}
@@ -93,9 +89,9 @@ namespace Hazel
 		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
 		);
 
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->Bind();
+		s_Data->FlatColorShader->Bind();
 
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformFloat4("u_Color", color);
+		s_Data->FlatColorShader->SetFloat4("u_Color", color);
 
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
