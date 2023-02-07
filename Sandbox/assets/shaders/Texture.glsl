@@ -23,12 +23,12 @@ void main()
 
 layout(location = 0) out vec4 color;
 
-in vec3 v_Position;
 in vec2 v_TextureCoordinates;
 
+uniform vec4 u_Color;
 uniform sampler2D u_Texture;
 
 void main()
 {
-	color = texture(u_Texture, v_TextureCoordinates);
+	color = texture(u_Texture, v_TextureCoordinates) * u_Color;
 }
