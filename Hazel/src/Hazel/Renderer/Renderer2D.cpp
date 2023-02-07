@@ -13,7 +13,7 @@ namespace Hazel
 	struct Renderer2DStorage
 	{
 		Ref<VertexArray> QuadVertexArray;
-		Ref<Shader> Shader; // Do Texture and FlatColor
+		Ref<Shader> Shader; // Do both Texture and FlatColor
 		Ref<Texture2D> WhiteTexture;
 	};
 

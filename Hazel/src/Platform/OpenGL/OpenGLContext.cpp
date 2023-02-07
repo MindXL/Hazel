@@ -17,8 +17,12 @@ namespace Hazel
 	{
 		glfwMakeContextCurrent(m_WindowHandle);
 
+#ifdef HZ_ENABLE_ASSERTS
 		const int version = gladLoadGL(glfwGetProcAddress);
 		HZ_CORE_ASSERT(version, "Failed to initialize Glad(OpenGL context)!");
+#else
+		gladLoadGL(glfwGetProcAddress);
+#endif // HZ_ENABLE_ASSERTS
 
 		HZ_CORE_INFO("OpenGL Info:");
 		HZ_CORE_INFO("  Vendor: {0}", (const char*)glGetString(GL_VENDOR));
@@ -32,7 +36,7 @@ namespace Hazel
 
 		HZ_CORE_ASSERT((versionMajor == 4 && versionMinor >= 6)|| versionMajor > 4,
 		               "Hazel requires at least OpenGL version 4.6!");
-#endif
+#endif // HZ_ENABLE_ASSERTS
 	}
 
 	void OpenGLContext::SwapBuffers()

@@ -55,8 +55,13 @@ namespace Hazel
 		if (!s_GLFWInitialized)
 		{
 			// Only initialze GLFW for once.
+#ifdef HZ_ENABLE_ASSERTS
 			const int success = glfwInit();
 			HZ_CORE_ASSERT(success, "Could not initialize GLFW!");
+#else
+			glfwInit();
+#endif // HZ_ENABLE_ASSERTS
+
 			glfwSetErrorCallback(GFLWErrorCallback);
 
 			s_GLFWInitialized = true;
@@ -71,7 +76,6 @@ namespace Hazel
 		SetVSync(true);
 
 		// Set GLFW callbacks
-		// TODO: Fix or close VS's horrible auto formatting for lambda functions when saved as shown below.
 		glfwSetWindowSizeCallback(m_Window,
 		                          [](GLFWwindow* window, int width, int height)-> void
 		                          {
