@@ -4,7 +4,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Sandbox2D::Sandbox2D()
-	: Layer{"Sandbox2D"}, m_CameraController{1280.0f / 720.0f, true} {}
+	: Layer{"Sandbox2D"},
+	  m_CheckerboardTexture{Hazel::Texture2D::Create("assets/textures/Checkerboard.png")},
+	  m_CameraController{1280.0f / 720.0f, true} {}
 
 void Sandbox2D::OnAttach() {}
 
@@ -21,6 +23,7 @@ void Sandbox2D::OnUpdate(Hazel::Timestep timestep)
 
 	Hazel::Renderer2D::DrawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, m_SquareColor);
 	Hazel::Renderer2D::DrawQuad({1.0f, 0.0f}, {0.5f, 0.75f}, m_SquareColor);
+	Hazel::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {5.0f, 5.0f}, m_CheckerboardTexture);
 
 	Hazel::Renderer2D::EndScene();
 }
