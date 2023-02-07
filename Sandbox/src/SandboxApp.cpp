@@ -105,7 +105,6 @@ public:
 		m_Texture = Hazel::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoLogoTexture = Hazel::Texture2D::Create("assets/textures/ChernoLogo.png");
 
-		// TODO: Causes binding shader twice.
 		textureShader->Bind();
 		textureShader->SetInt("u_Texture", 0);
 	}
@@ -123,7 +122,6 @@ public:
 
 		const glm::mat4 scale = glm::scale(glm::mat4{1.0f}, glm::vec3{0.1f});
 
-		// TODO: Causes binding shader twice.
 		m_FlatColorShader->Bind();
 		m_FlatColorShader->SetFloat4("u_Color", m_SquareColor);
 

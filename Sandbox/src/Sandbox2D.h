@@ -14,9 +14,6 @@ public:
 	void OnEvent(Hazel::Event& event) override;
 
 private:
-	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
-	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
-
 	const Hazel::Ref<Hazel::Texture2D> m_CheckerboardTexture;
 
 	Hazel::OrthographicCameraController m_CameraController;
