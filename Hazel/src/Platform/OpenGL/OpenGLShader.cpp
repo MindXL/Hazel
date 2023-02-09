@@ -101,10 +101,13 @@ namespace Hazel
 		std::string result;
 
 		in.seekg(0, std::ios::end);
-		result.resize(in.tellg());
+		const auto size = in.tellg();
+		if (size == -1)
+			HZ_CORE_ERROR("Could not open file \"{0}\"", filepath);
+		result.resize(size);
 
 		in.seekg(0, std::ios::beg);
-		in.read(result.data(), (long long)result.size());
+		in.read(result.data(), size);
 
 		in.close();
 
