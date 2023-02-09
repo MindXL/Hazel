@@ -6,7 +6,7 @@
 
 namespace Hazel
 {
-	class HAZEL_API Layer
+	class Layer
 	{
 	public:
 		explicit Layer(std::string debugName = "Layer");

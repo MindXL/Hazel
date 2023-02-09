@@ -4,14 +4,14 @@
 
 // Platform detection using predefined macros
 #ifdef _WIN32
-	/* Windows x64/x86 */
-	#ifdef _WIN64
-		/* Windows x64  */
-		#define HZ_PLATFORM_WINDOWS
-	#else
+/* Windows x64/x86 */
+#ifdef _WIN64
+/* Windows x64  */
+#define HZ_PLATFORM_WINDOWS
+#else
 		/* Windows x86 */
 		#error "x86 Builds are not supported!"
-	#endif // _WIN64
+#endif // _WIN64
 #elif defined(__APPLE__) || defined(__MACH__)
 	#include <TargetConditionals.h>
 	/* TARGET_OS_MAC exists on all the platforms
@@ -43,27 +43,13 @@
 	#error "Unknown platform!"
 #endif // End of platform detection
 
-#ifdef HZ_PLATFORM_WINDOWS
-	#ifdef HZ_DYNAMIC_LINK
-		#ifdef HZ_BUILD_DLL
-			#define HAZEL_API __declspec(dllexport)
-		#else
-			#define HAZEL_API __declspec(dllimport)
-		#endif // HZ_BUILD_DLL
-	#else
-		#define HAZEL_API
-	#endif // HZ_DYNAMIC_LINK
-#else
-	#error Hazel only supports Windows!
-#endif // HZ_PLATFORM_WINDOWS
-
 #ifdef HZ_DEBUG
-	#define HZ_ENABLE_ASSERTS
+#define HZ_ENABLE_ASSERTS
 #endif
 
 #ifdef HZ_ENABLE_ASSERTS
-	#define HZ_CORE_ASSERT(x, ...) [&]() { if (!(x)) { HZ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }()
-	#define HZ_CLIENT_ASSERT(x, ...) [&]() { if (!(x)) { HZ_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }()
+#define HZ_CORE_ASSERT(x, ...) [&]() { if (!(x)) { HZ_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }()
+#define HZ_CLIENT_ASSERT(x, ...) [&]() { if (!(x)) { HZ_CLIENT_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }()
 #else
 	#define HZ_CORE_ASSERT(x, ...)
 	#define HZ_CLIENT_ASSERT(x, ...)

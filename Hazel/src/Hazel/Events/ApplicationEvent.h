@@ -4,7 +4,7 @@
 
 namespace Hazel
 {
-	class HAZEL_API WindowResizeEvent final : public Event
+	class WindowResizeEvent final : public Event
 	{
 	public:
 		WindowResizeEvent(const unsigned int width, const unsigned int height)
@@ -27,28 +27,28 @@ namespace Hazel
 		unsigned int m_Width, m_Height;
 	};
 
-	class HAZEL_API WindowCloseEvent final : public Event
+	class WindowCloseEvent final : public Event
 	{
 	public:
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 		EVENT_CLASS_TYPE(WindowClose)
 	};
 
-	class HAZEL_API AppTickEvent final : public Event
+	class AppTickEvent final : public Event
 	{
 	public:
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 		EVENT_CLASS_TYPE(AppTick)
 	};
 
-	class HAZEL_API AppUpdateEvent final : public Event
+	class AppUpdateEvent final : public Event
 	{
 	public:
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)
 		EVENT_CLASS_TYPE(AppUpdate)
 	};
 
-	class HAZEL_API AppRenderEvent final : public Event
+	class AppRenderEvent final : public Event
 	{
 	public:
 		EVENT_CLASS_CATEGORY(EventCategoryApplication)

@@ -30,7 +30,7 @@ namespace Hazel
 
 	private:
 		GLFWwindow* m_Window = nullptr;
-		GraphicsContext* m_Context = nullptr;
+		Scope<GraphicsContext> m_Context = nullptr;
 
 		struct WindowData
 		{

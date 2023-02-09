@@ -2,10 +2,9 @@
 
 #include "Application.h"
 
-#include <ranges>
-
 #include "Log.h"
 #include "Hazel/Renderer/Renderer.h"
+#include "Hazel/Renderer/Renderer2D.h"
 
 namespace Hazel
 {
@@ -23,6 +22,11 @@ namespace Hazel
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
+	}
+
+	Application::~Application()
+	{
+		Renderer2D::Shutdown();
 	}
 
 	void Application::Run()
