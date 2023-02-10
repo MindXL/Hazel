@@ -13,7 +13,6 @@ namespace Hazel
 		void OnDetach() override;
 
 		static void Begin();
-		void OnImGuiRender() override;
 		static void End();
 	};
 }

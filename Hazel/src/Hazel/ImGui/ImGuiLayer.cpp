@@ -61,12 +61,6 @@ namespace Hazel
 		ImGui::NewFrame();
 	}
 
-	void ImGuiLayer::OnImGuiRender()
-	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-	}
-
 	void ImGuiLayer::End()
 	{
 		const ImGuiIO& io = ImGui::GetIO();
