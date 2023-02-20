@@ -11,6 +11,7 @@
 #include <ranges>
 #include <iterator>
 #include <cmath>
+#include <thread>
 
 #include <string>
 #include <sstream>
@@ -19,3 +20,4 @@
 #include <array>
 
 #include "Hazel/Core/Log.h"
+#include "Hazel/Debug/Instrumentor.h"

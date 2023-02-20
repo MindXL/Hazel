@@ -13,3 +13,6 @@
 
 # ImGui
 imgui.ini
+
+# Debug
+*.json
