@@ -26,7 +26,7 @@ namespace Hazel
 
 	private:
 		void Init(const WindowProps& props);
-		void Shutdown() const { glfwDestroyWindow(m_Window); }
+		void Shutdown() const;
 
 	private:
 		GLFWwindow* m_Window = nullptr;

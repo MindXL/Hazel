@@ -14,6 +14,8 @@ namespace Hazel
 
 	void OrthographicCameraController::OnUpdate(Timestep timestep)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		const float time = timestep.GetSeconds();
 
 		// TODO: Maybe convert those if-statements below to function call.
@@ -71,6 +73,8 @@ namespace Hazel
 
 	void OrthographicCameraController::OnEvent(Event& event)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher{event};
 
 		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(OrthographicCameraController::OnWindowResized));
@@ -79,6 +83,8 @@ namespace Hazel
 
 	bool OrthographicCameraController::OnWindowResized(const WindowResizeEvent& event)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		m_AspectRatio = (float)event.GetWidth() / (float)event.GetHeight();
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 
@@ -87,6 +93,8 @@ namespace Hazel
 
 	bool OrthographicCameraController::OnMouseScrolled(const MouseScrolledEvent& event)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		m_ZoomLevel -= event.GetYOffset() * 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);

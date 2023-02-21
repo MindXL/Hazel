@@ -10,6 +10,8 @@ namespace Hazel
 	OpenGLTexture2D::OpenGLTexture2D(const uint32_t width, const uint32_t height)
 		: m_Width{width}, m_Height{height}, m_InternalFormat{GL_RGBA8}, m_DataFormat{GL_RGBA}
 	{
+		HZ_PROFILE_FUNCTION();
+
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererID);
 		glTextureStorage2D(m_RendererID, 1, m_InternalFormat, (int)m_Width, (int)m_Height);
 
@@ -20,9 +22,15 @@ namespace Hazel
 	OpenGLTexture2D::OpenGLTexture2D(std::string path)
 		: m_Path{std::move(path)}
 	{
+		HZ_PROFILE_FUNCTION();
+
 		int width = 0, height = 0, channels = 0;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(m_Path.c_str(), &width, &height, &channels, 0);
+		stbi_uc* data;
+		{
+			HZ_PROFILE_SCOPE("stbi_load - OpenGLTexture2D::OpenGLTexture2D(std::string)");
+			data = stbi_load(m_Path.c_str(), &width, &height, &channels, 0);
+		}
 		HZ_CORE_ASSERT(data, "Failed to load image!");
 
 		m_Width = (uint32_t)width;
@@ -53,11 +61,15 @@ namespace Hazel
 
 	OpenGLTexture2D::~OpenGLTexture2D()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		glDeleteTextures(1, &m_RendererID);
 	}
 
 	void OpenGLTexture2D::SetData(const void* data, const uint32_t size) const
 	{
+		HZ_PROFILE_FUNCTION();
+
 #ifdef HZ_ENABLE_ASSERTS
 		const uint32_t bytesPerPixel = m_DataFormat == GL_RGBA ? 4 : 3;
 		HZ_CORE_ASSERT(size == m_Width * m_Height * bytesPerPixel, "Data must be the entire texture.");
@@ -68,6 +80,8 @@ namespace Hazel
 
 	void OpenGLTexture2D::Bind(const uint32_t slot) const
 	{
+		HZ_PROFILE_FUNCTION();
+
 		glBindTextureUnit(slot, m_RendererID);
 	}
 }

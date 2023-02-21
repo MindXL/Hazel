@@ -12,6 +12,8 @@ namespace Hazel
 
 	Application::Application()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(s_Instance == nullptr, "Application already exists!");
 		s_Instance = this;
 
@@ -26,13 +28,19 @@ namespace Hazel
 
 	Application::~Application()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		Renderer2D::Shutdown();
 	}
 
 	void Application::Run()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			HZ_PROFILE_SCOPE("Run Loop");
+
 			auto timePoint = std::chrono::steady_clock::now();
 			Timestep timestep{timePoint - m_LastFrameTimePoint};
 			m_LastFrameTimePoint = timePoint;
@@ -40,14 +48,20 @@ namespace Hazel
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(timestep);
-			}
+				{
+					HZ_PROFILE_SCOPE("Do every layer->OnUpdate() in LayerStack");
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(timestep);
+				}
 
-			ImGuiLayer::Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
-			ImGuiLayer::End();
+				ImGuiLayer::Begin();
+				{
+					HZ_PROFILE_SCOPE("Do every layer->OnImGuiRender() in LayerStack");
+					for (Layer* layer : m_LayerStack)
+						layer->OnImGuiRender();
+				}
+				ImGuiLayer::End();
+			}
 
 			m_Window->OnUpdate();
 		}
@@ -55,6 +69,8 @@ namespace Hazel
 
 	void Application::OnEvent(Event& event)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher{event};
 		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(Application::OnWindowResize));
 		dispatcher.Dispatch<WindowCloseEvent>(HZ_BIND_EVENT_FN(Application::OnWindowClose));
@@ -67,8 +83,24 @@ namespace Hazel
 		}
 	}
 
+	void Application::PushLayer(Layer* layer)
+	{
+		HZ_PROFILE_FUNCTION();
+
+		m_LayerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* overlay)
+	{
+		HZ_PROFILE_FUNCTION();
+
+		m_LayerStack.PushOverlay(overlay);
+	}
+
 	bool Application::OnWindowResize(const WindowResizeEvent& event)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		const uint32_t width = event.GetWidth(), height = event.GetHeight();
 
 		if (width == 0 || height == 0)

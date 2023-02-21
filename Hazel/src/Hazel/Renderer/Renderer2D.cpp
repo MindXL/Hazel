@@ -21,6 +21,8 @@ namespace Hazel
 
 	void Renderer2D::Init()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(s_Data == nullptr,
 		               "Hazel::Renderer2D::Init() was called when there was already an instance of Hazel::Renderer2DStorage existed. "
 		               "Call Hazel::Renderer2D::Shutdown() first to delete this instance."
@@ -60,6 +62,8 @@ namespace Hazel
 
 	void Renderer2D::Shutdown()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(s_Data != nullptr,
 		               "Hazel::Renderer2D::Shutdown() was called when there was no instance of Hazel::Renderer2DStorage existed."
 		);
@@ -69,6 +73,8 @@ namespace Hazel
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(s_Data != nullptr,
 		               "Hazel::Renderer2D::BeginScene() was called when there was no instance of Hazel::Renderer2DStorage existed. "
 		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
@@ -78,7 +84,10 @@ namespace Hazel
 		s_Data->Shader->SetMat4("u_ViewProjectionMatrix", camera.GetViewProjectionMatrix());
 	}
 
-	void Renderer2D::EndScene() {}
+	void Renderer2D::EndScene()
+	{
+		HZ_PROFILE_FUNCTION();
+	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
 	{
@@ -92,6 +101,8 @@ namespace Hazel
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(s_Data != nullptr,
 		               "Hazel::Renderer2D::DrawQuad() was called when there was no instance of Hazel::Renderer2DStorage existed. "
 		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
@@ -121,6 +132,8 @@ namespace Hazel
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(s_Data != nullptr,
 		               "Hazel::Renderer2D::DrawQuad() was called when there was no instance of Hazel::Renderer2DStorage existed. "
 		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
