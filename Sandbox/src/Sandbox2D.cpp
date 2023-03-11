@@ -28,9 +28,12 @@ void Sandbox2D::OnUpdate(Hazel::Timestep timestep)
 
 		Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
+		Hazel::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {5.0f, 5.0f}, m_CheckerboardTexture, 10.0f);
+		//Hazel::Renderer2D::DrawRotatedQuad({0.0f, 0.0f, -0.1f}, {5.0f, 5.0f}, glm::radians(45.0f), m_CheckerboardTexture, 10.0f);
+
 		Hazel::Renderer2D::DrawQuad({-1.0f, 0.0f}, {0.8f, 0.8f}, m_SquareColor);
 		Hazel::Renderer2D::DrawQuad({1.0f, 0.0f}, {0.5f, 0.75f}, m_SquareColor);
-		Hazel::Renderer2D::DrawQuad({0.0f, 0.0f, -0.1f}, {5.0f, 5.0f}, m_CheckerboardTexture, 10.0f);
+		Hazel::Renderer2D::DrawRotatedQuad({-1.0f, -1.0f}, {0.6f, 0.6f}, glm::radians(45.0f), m_SquareColor);
 
 		Hazel::Renderer2D::EndScene();
 	}

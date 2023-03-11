@@ -110,7 +110,8 @@ namespace Hazel
 
 		s_Data->QuadVertexArray->Bind();
 
-		const glm::mat4 transform = glm::translate(glm::mat4{1.0f}, position) * glm::scale(glm::mat4{1.0f}, {size.x, size.y, 1.0f});
+		const glm::mat4 transform = glm::translate(glm::mat4{1.0f}, position)
+		                            * glm::scale(glm::mat4{1.0f}, {size.x, size.y, 1.0f});
 		s_Data->Shader->SetMat4("u_Transform", transform);
 
 		s_Data->Shader->SetFloat4("u_Color", color);
@@ -142,7 +143,78 @@ namespace Hazel
 
 		s_Data->QuadVertexArray->Bind();
 
-		const glm::mat4 transform = glm::translate(glm::mat4{1.0f}, position) * glm::scale(glm::mat4{1.0f}, {size.x, size.y, 1.0f});
+		const glm::mat4 transform = glm::translate(glm::mat4{1.0f}, position)
+		                            * glm::scale(glm::mat4{1.0f}, {size.x, size.y, 1.0f});
+		s_Data->Shader->SetMat4("u_Transform", transform);
+
+		s_Data->Shader->SetFloat4("u_Color", glm::vec4{1.0f});
+		s_Data->Shader->SetFloat("u_TilingFactor", tilingFactor);
+
+		texture->Bind();
+
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, const float rotation, const glm::vec4& color)
+	{
+		HZ_CORE_ASSERT(s_Data != nullptr,
+		               "Hazel::Renderer2D::DrawRotatedQuad() was called when there was no instance of Hazel::Renderer2DStorage existed. "
+		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
+		);
+
+		DrawRotatedQuad({position.x, position.y, 0.0f}, size, rotation, color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, const glm::vec4& color)
+	{
+		HZ_PROFILE_FUNCTION();
+
+		HZ_CORE_ASSERT(s_Data != nullptr,
+		               "Hazel::Renderer2D::DrawRotatedQuad() was called when there was no instance of Hazel::Renderer2DStorage existed. "
+		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
+		);
+
+		s_Data->QuadVertexArray->Bind();
+
+		const glm::mat4 transform = glm::translate(glm::mat4{1.0f}, position)
+		                            * glm::rotate(glm::mat4{1.0f}, rotation, {0.0f, 0.0f, 1.0f})
+		                            * glm::scale(glm::mat4{1.0f}, {size.x, size.y, 1.0f});
+		s_Data->Shader->SetMat4("u_Transform", transform);
+
+		s_Data->Shader->SetFloat4("u_Color", color);
+		s_Data->Shader->SetFloat("u_TilingFactor", 1.0f);
+
+		s_Data->WhiteTexture->Bind();
+
+		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& position, const glm::vec2& size, const float rotation, const Ref<Texture2D>& texture,
+	                                 const float tilingFactor)
+	{
+		HZ_CORE_ASSERT(s_Data != nullptr,
+		               "Hazel::Renderer2D::DrawRotatedQuad() was called when there was no instance of Hazel::Renderer2DStorage existed. "
+		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
+		);
+
+		DrawRotatedQuad({position.x, position.y, 0.0f}, size, rotation, texture, tilingFactor);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, const Ref<Texture2D>& texture,
+	                                 const float tilingFactor)
+	{
+		HZ_PROFILE_FUNCTION();
+
+		HZ_CORE_ASSERT(s_Data != nullptr,
+		               "Hazel::Renderer2D::DrawQuad() was called when there was no instance of Hazel::Renderer2DStorage existed. "
+		               "Call Hazel::Renderer2D::Init() first to initialize such an instance."
+		);
+
+		s_Data->QuadVertexArray->Bind();
+
+		const glm::mat4 transform = glm::translate(glm::mat4{1.0f}, position)
+		                            * glm::rotate(glm::mat4{1.0f}, rotation, {0.0f, 0.0f, 1.0f})
+		                            * glm::scale(glm::mat4{1.0f}, {size.x, size.y, 1.0f});
 		s_Data->Shader->SetMat4("u_Transform", transform);
 
 		s_Data->Shader->SetFloat4("u_Color", glm::vec4{1.0f});
